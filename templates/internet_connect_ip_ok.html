@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form method="post" name="logout" >
+ <input type="submit" value="logout" name='logout'>
+    {% csrf_token %}
+</form>
+
+
+{% for soft in softs_victim %}
+
+<table class="table table-cozy table-bordered table-striped table-software table-hover with-check" >
+<thead>
+<tr>
+<th></th>
+<th>Software name</th>
+<th>Version</th>
+<th class="hide-phone">Size</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody>
+
+
+<tr id="downsoftid={{ soft.id }}" class="installed">
+<td>
+
+</td>
+<td>
+<b>{{ soft.softname }}</b>
+</td>
+<td>
+<font color="green">{{ soft.softversion }}</font>
+</td>
+<td class="hide-phone">
+<font color="green">{{ soft.softsize }}</font>
+</td>
+<td style="text-align: center">
+    <form method="post" name="editlog">
+    {% csrf_token %}
+<input type="submit" value="Download" name='downsoftid={{ soft.id }}'>
+<td style="text-align: center">
+    <form method="post" name="delsoft">
+    {% csrf_token %}
+<input type="submit" value="delete" name='delsoftid={{ soft.id }}'>
+</td>
+</tr>
+</tbody>
+</table>
+
+
+ {% endfor %}
+
+{% endblock %}

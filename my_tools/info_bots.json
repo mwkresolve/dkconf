@@ -1,0 +1,476 @@
+{
+  "bot1": {
+    "nome": "zeroguy",
+    "ip": "0.0.0.0",
+    "cpu": 3500,
+    "hdd": 20000,
+    "ram": 2048,
+    "softs": {
+      "soft": {
+        "1": {
+          "version": 1,
+          "type": ".Cracker"
+        },
+        "2": {
+          "version": 1,
+          "type": ".Hasher"
+        },
+        "3": {
+          "version": 1,
+          "type": ".Firewall"
+        },
+        "4": {
+          "version": 1,
+          "type": ".Hidder"
+        },
+        "5": {
+          "version": 1,
+          "type": ".Seeker"
+        },
+        "6": {
+          "version": 1,
+          "type": ".Anti-Virus"
+        },
+        "7": {
+          "version": 1,
+          "type": ".Spam"
+        },
+        "8": {
+          "version": 1,
+          "type": ".Warez"
+        },
+        "9": {
+          "version": 1,
+          "type": ".DDoS"
+        },
+        "10": {
+          "version": 1,
+          "type": ".Collector"
+        },
+        "11": {
+          "version": 1,
+          "type": ".Breaker"
+        },
+        "12": {
+          "version": 1,
+          "type": ".FTPExploit"
+        },
+        "13": {
+          "version": 1,
+          "type": ".SSHExploit"
+        },
+        "14": {
+          "version": 1,
+          "type": ".Torrent"
+        },
+        "15": {
+          "version": 1,
+          "type": ".Miner"
+        }
+      }}},
+  "bot2": {
+    "nome": "computerist",
+    "ip": "create",
+    "cpu": 3500,
+    "hdd": 20000,
+    "ram": 2048,
+    "softs": {
+      "soft": {
+        "1": {
+        "version": 2,
+        "type": ".Cracker"
+      },
+      "2": {
+        "version": 1,
+        "type": ".Hasher"
+      },
+      "3": {
+        "version": 2,
+        "type": ".Firewall"
+        }
+      }}},
+  "bot3": {
+    "nome": "gearhead",
+    "ip": "create",
+        "cpu": 3500,
+    "hdd": 20000,
+    "ram": 2048,
+    "softs": {
+      "soft": {
+        "1": {
+        "version": 3,
+        "type": ".Cracker"
+      },
+      "2": {
+        "version": 2,
+        "type": ".Hasher"
+      },
+      "3": {
+        "version": 3,
+        "type": ".Firewall"
+        }
+      }}},
+  "bot4": {
+    "nome": "geek",
+    "ip": "create",
+        "cpu": 3500,
+    "hdd": 20000,
+    "ram": 2048,
+    "softs": {
+      "soft": {
+        "1": {
+        "version": 4,
+        "type": ".Cracker"
+      },
+      "2": {
+        "version": 3,
+        "type": ".Hasher"
+      },
+      "3": {
+        "version": 4,
+        "type": ".Firewall"
+        }
+      }}},
+  "bot5": {
+    "nome": "techie",
+    "ip": "create",
+        "cpu": 3500,
+    "hdd": 20000,
+    "ram": 2048,
+    "softs": {
+      "soft": {
+        "1": {
+        "version": 5,
+        "type": ".Cracker"
+      },
+      "2": {
+        "version": 4,
+        "type": ".Hasher"
+      },
+      "3": {
+        "version": 5,
+        "type": ".Firewall"
+        }
+      }}},
+  "bot6": {
+    "nome": "technocrat",
+    "ip": "create",
+        "cpu": 3500,
+    "hdd": 20000,
+    "ram": 2048,
+    "softs": {
+      "soft": {
+        "1": {
+        "version": 6,
+        "type": ".Cracker"
+      },
+      "2": {
+        "version": 5,
+        "type": ".Hasher"
+      },
+      "3": {
+        "version": 6,
+        "type": ".Firewall"
+        }
+      }}},
+  "bot7": {
+    "nome": "technophile",
+    "ip": "create",
+        "cpu": 3500,
+    "hdd": 20000,
+    "ram": 2048,
+    "softs": {
+      "soft": {
+        "1": {
+        "version": 7,
+        "type": ".Cracker"
+      },
+      "2": {
+        "version": 6,
+        "type": ".Hasher"
+      },
+      "3": {
+        "version": 7,
+        "type": ".Firewall"
+        }
+      }}},
+  "bot8": {
+    "nome": "phisher",
+    "ip": "create",
+        "cpu": 3500,
+    "hdd": 20000,
+    "ram": 2048,
+    "softs": {
+      "soft": {
+        "1": {
+        "version": 8,
+        "type": ".Cracker"
+      },
+      "2": {
+        "version": 7,
+        "type": ".Hasher"
+      },
+      "3": {
+        "version": 8,
+        "type": ".Firewall"
+        }
+      }}},
+  "bot9": {
+    "nome": "computerphobe",
+    "ip": "create",
+        "cpu": 3500,
+    "hdd": 20000,
+    "ram": 2048,
+    "softs": {
+      "soft": {
+        "1": {
+        "version": 9,
+        "type": ".Cracker"
+      },
+      "2": {
+        "version": 8,
+        "type": ".Hasher"
+      },
+      "3": {
+        "version": 9,
+        "type": ".Firewall"
+        }
+      }}},
+  "bot10": {
+    "nome": "technophobe",
+    "ip": "create",
+        "cpu": 3500,
+    "hdd": 20000,
+    "ram": 2048,
+    "softs": {
+      "soft": {
+        "1": {
+        "version": 10,
+        "type": ".Cracker"
+      },
+      "2": {
+        "version": 9,
+        "type": ".Hasher"
+      },
+      "3": {
+        "version": 10,
+        "type": ".Firewall"
+        }
+      }}},
+  "bot11": {
+    "nome": "amateur",
+    "ip": "create",
+        "cpu": 3500,
+    "hdd": 20000,
+    "ram": 2048,
+    "softs": {
+      "soft": {
+        "1": {
+        "version": 11,
+        "type": ".Cracker"
+      },
+      "2": {
+        "version": 10,
+        "type": ".Hasher"
+      },
+      "3": {
+        "version": 11,
+        "type": ".Firewall"
+        }
+      }}},
+  "bot12": {
+    "nome": "trifler",
+    "ip": "create",
+        "cpu": 3500,
+    "hdd": 20000,
+    "ram": 2048,
+    "softs": {
+      "soft": {
+        "1": {
+        "version": 12,
+        "type": ".Cracker"
+      },
+      "2": {
+        "version": 11,
+        "type": ".Hasher"
+      },
+      "3": {
+        "version": 12,
+        "type": ".Firewall"
+        }
+      }}},
+  "bot13": {
+    "nome": "jackleg",
+    "ip": "create",
+        "cpu": 3500,
+    "hdd": 20000,
+    "ram": 2048,
+    "softs": {
+      "soft": {
+        "1": {
+        "version": 13,
+        "type": ".Cracker"
+      },
+      "2": {
+        "version": 12,
+        "type": ".Hasher"
+      },
+      "3": {
+        "version": 13,
+        "type": ".Firewall"
+        }
+      }}},
+  "bot14": {
+    "nome": "freshman",
+    "ip": "create",
+        "cpu": 3500,
+    "hdd": 20000,
+    "ram": 2048,
+    "softs": {
+      "soft": {
+        "1": {
+        "version": 14,
+        "type": ".Cracker"
+      },
+      "2": {
+        "version": 13,
+        "type": ".Hasher"
+      },
+      "3": {
+        "version": 14,
+        "type": ".Firewall"
+        }
+      }}},
+  "bot15": {
+    "nome": "greenhorn",
+    "ip": "create",
+        "cpu": 3500,
+    "hdd": 20000,
+    "ram": 2048,
+    "softs": {
+      "soft": {
+        "1": {
+        "version": 15,
+        "type": ".Cracker"
+      },
+      "2": {
+        "version": 14,
+        "type": ".Hasher"
+      },
+      "3": {
+        "version": 15,
+        "type": ".Firewall"
+        }
+      }}},
+  "bot16": {
+    "nome": "neophyte",
+    "ip": "create",
+    "cpu": 3500,
+    "hdd": 20000,
+    "ram": 2048,
+    "softs": {
+      "soft": {
+        "1": {
+        "version": 16,
+        "type": ".Cracker"
+      },
+      "2": {
+        "version": 15,
+        "type": ".Hasher"
+      },
+      "3": {
+        "version": 16,
+        "type": ".Firewall"
+        }
+      }}},
+  "bot17": {
+    "nome": "newcomer",
+    "ip": "create",
+        "cpu": 3500,
+    "hdd": 20000,
+    "ram": 2048,
+    "softs": {
+      "soft": {
+        "1": {
+        "version": 17,
+        "type": ".Cracker"
+      },
+      "2": {
+        "version": 16,
+        "type": ".Hasher"
+      },
+      "3": {
+        "version": 17,
+        "type": ".Firewall"
+        }
+      }}},
+  "bot18": {
+    "nome": "tenderfoot",
+    "ip": "create",
+    "cpu": 3500,
+    "hdd": 20000,
+    "ram": 2048,
+      "softs": {
+        "soft": {
+          "1": {
+            "version": 18,
+            "type": ".Cracker"
+          },
+          "2": {
+            "version": 17,
+            "type": ".Hasher"
+          },
+          "3": {
+            "version": 18,
+            "type": ".Firewall"
+          }
+        }
+      }
+    },
+    "bot19": {
+      "nome": "wizard",
+      "ip": "create",
+      "cpu": 3500,
+      "hdd": 20000,
+      "ram": 2048,
+      "softs": {
+        "soft": {
+          "1": {
+            "version": 19,
+            "type": ".Cracker"
+          },
+          "2": {
+            "version": 18,
+            "type": ".Hasher"
+          },
+          "3": {
+            "version": 19,
+            "type": ".Firewall"
+          }
+        }
+      }
+    },
+    "bot20": {
+      "nome": "crackerjack",
+      "ip": "create",
+      "cpu": 3500,
+      "hdd": 20000,
+      "ram": 2048,
+      "softs": {
+        "soft": {
+          "1": {
+            "version": 20,
+            "type": ".Cracker"
+          },
+          "2": {
+            "version": 20,
+            "type": ".Hasher"
+          },
+          "3": {
+            "version": 20,
+            "type": ".Firewall"
+          }
+        }
+      }
+    }
+  }
