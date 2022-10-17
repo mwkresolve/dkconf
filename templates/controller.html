@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<form action="#" >
+ <input type="submit" class="btn" value="generate game" name="creategame" >
+    {% csrf_token %}
+</form>
+</br>
+</br>
+<form action="#">
+ <input type="submit" class="btn" value="generate bots" name="createnpc">
+</form>
+</br>
+
+
+
+{% endblock %}

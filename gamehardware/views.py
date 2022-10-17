@@ -1,0 +1,10 @@
+from django.shortcuts import render
+from django.views.generic import TemplateView
+from controller.models import Hardware
+
+class HardwareView(TemplateView):
+    template_name = "basehardware.html"
+
+    def get(self, request):
+        user_hardware = Hardware.objects.filter(userid=request.user).values()
+        return render(request, self.template_name, {'user_hardware':user_hardware})
