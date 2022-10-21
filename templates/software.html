@@ -100,6 +100,7 @@
 						<th>Actions</th>
 						</tr>
 						</thead>
+                        
 						<tbody>{% for soft in softwares %}
 
 
@@ -107,8 +108,49 @@
 						<td>
 
 						</td>
-						<td>
-						<b>{{ soft.softname }}</b>
+						<td>                             {% if soft.softtype_id == 1 %}
+                                {{ soft.softname }}.BruteForce
+                            {% elif soft.softtype_id == 2 %}
+                                {{ soft.softname }}.Defender
+                            {% elif soft.softtype_id == 3 %}
+                                {{ soft.softname }}.PortScan
+                            {% elif soft.softtype_id == 4 %}
+                                {{ soft.softname }}.Firewall
+                            {% elif soft.softtype_id == 5 %}
+                                {{ soft.softname }}.Hidder
+                            {% elif soft.softtype_id == 6 %}
+                                {{ soft.softname }}.Seeker
+                            {% elif soft.softtype_id == 7 %}
+                                {{ soft.softname }}.Anti-Virus
+                            {% elif soft.softtype_id == 8 %}
+                                {{ soft.softname }}.Spam
+                            {% elif soft.softtype_id == 9 %}
+                                {{ soft.softname }}.Warez
+                            {% elif soft.softtype_id == 10 %}
+                                {{ soft.softname }}.DDoS
+                            {% elif soft.softtype_id == 11 %}
+                                {{ soft.softname }}.Collector
+                            {% elif soft.softtype_id == 12 %}
+                                {{ soft.softname }}.Breaker
+                            {% elif soft.softtype_id == 13 %}
+                                {{ soft.softname }}.FTPExploit
+                            {% elif soft.softtype_id == 14 %}
+                                {{ soft.softname }}.SSHExploit
+                            {% elif soft.softtype_id == 15 %}
+                                {{ soft.softname }}.Nmap
+                            {% elif soft.softtype_id == 16 %}
+                                {{ soft.softname }}.Analyzer
+                            {% elif soft.softtype_id == 17 %}
+                                {{ soft.softname }}.Torrent
+                            {% elif soft.softtype_id == 18 %}
+                                {{ soft.softname }}.Miner
+
+                            {% endif %}
+
+						<b>
+
+
+                        </b>
 						</td>
 						<td>
 						<font color="green">{{ soft.softversion }}</font>
@@ -116,16 +158,16 @@
 						<td class="hide-phone">
 						<font color="green">{{ soft.softsize }}</font>
 						</td>
-						<td style="text-align: center">
-						    <form method="post">
-						    {% csrf_token %}
-						 <button>download</button>
-						</form>
-						 <form method="post">
-						    {% csrf_token %}
-						 <button>excluir</button>
-						</form>
-						</td>
+						          <td style="text-align: center">
+                            <form method="post" name="editlog">
+                            {% csrf_token %}
+                        <input type="submit" value="Download" name='downsoftid={{ soft.id }}'>
+                         
+                        
+                            <form method="post" name="delsoft">
+                            {% csrf_token %}
+                        <input type="submit" value="delete" name='delsoftid={{ soft.id }}'>
+                        </td>
 						</tr>
 						{% endfor %}
 

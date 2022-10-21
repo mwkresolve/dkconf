@@ -15,5 +15,5 @@ class SoftwareView(TemplateView):
 
         print('------------------------------------')
 
-        return render(request, self.template_name, {'softwares': softs, 'typesofts':typesoft})
+        return render(request, self.template_name, {'softwares': softs, 'typesoft':typesoft})
 
