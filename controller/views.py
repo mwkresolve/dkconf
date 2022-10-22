@@ -28,5 +28,8 @@ class Controller(TemplateView):
                 create_npc_game()
             if request.GET.get('creategame'):
                 creategame()
+            if request.GET.get('resetsoftsnpc'):
+                reset_softs_npc()
+
             return render(request, 'controller.html')
         return render(request, 'home.html')

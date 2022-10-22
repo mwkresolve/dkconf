@@ -7,7 +7,7 @@ import unittest
 
 class CaseCreateUser(unittest.TestCase):
     def testBasic(self):
-    	for c in range(10):
+    	for c in range(100):
     		name = f'{names.get_last_name()}_{names.get_first_name()}'
     		print(name)
     		self.user_1 = User.objects.create_user(f'{name}', f'{name}@chase.com', 'chevyspgererassword')

@@ -15,6 +15,8 @@ def create_user_game(user):
     Hardware.objects.create(userid=user)
     HistUsersCurrent.objects.create(userid=user)
     User.objects.update(stats_game=True)
+
+
 def creategame():
     Softs_Types = {
         '1': '.Cracker',
@@ -26,7 +28,7 @@ def creategame():
         '7': '.Anti-Virus',
         '8': '.Spam',
         '9': '.Warez',
-        '10': '.DDoS',
+        '10': '.DDoS/?resetsoftsnpc=reset+softs#',
         '11': '.Collector',
         '12': '.Breaker',
         '13': '.FTPExploit',
@@ -65,6 +67,16 @@ def create_hardware_npc():
         ram = npcList[bot]['ram']
         Hardware.objects.create(userid=user, cpu=cpu, hdd=hdd, ram=ram)
 
+
+def reset_softs_npc():
+    npc_data = open('my_tools/info_bots.json').read()
+    npcList = json.loads(npc_data)
+    for bot in npcList:
+        user = User.objects.get(username=npcList[bot]['nome'])
+        softs_npc =  Software.objects.filter(userid=user).delete()
+        
+    create_softs_npc()
+
 def create_softs_npc():
     npc_data = open('my_tools/info_bots.json').read()
     npcList = json.loads(npc_data)
@@ -89,18 +101,23 @@ def update_reputation(user, sumreputation):
     old_rep = HistUsersCurrent.objects.filter(userid=user).values('reputation')[0]['reputation']
     new_rep = old_rep + sumreputation
     HistUsersCurrent.objects.filter(userid=user).update(reputation=new_rep)
-    print('somou')
+
 
 
 def disconnect_ip_victim(user):
     User.objects.filter(username=user).update(ipconnected='off')
     update_reputation(user, 1)
 
+
 def connect_ip_victim(user, ip):
     User.objects.filter(username=user).update(ipconnected=ip)
     update_reputation(user, 1)
 
+
 def edit_my_log(user, logedit):
     User.objects.filter(username=user).update(log=logedit)
     update_reputation(user, 10)
+
+
+
 
