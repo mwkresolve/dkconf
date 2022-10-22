@@ -28,7 +28,7 @@ def creategame():
         '7': '.Anti-Virus',
         '8': '.Spam',
         '9': '.Warez',
-        '10': '.DDoS/?resetsoftsnpc=reset+softs#',
+        '10': '.DDoS',
         '11': '.Collector',
         '12': '.Breaker',
         '13': '.FTPExploit',
