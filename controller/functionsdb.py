@@ -1,5 +1,6 @@
 from .models import *
 import json
+from my_tools.functions import pwd_generator
 
 
 def disconnect_ip_victim(user):
@@ -9,7 +10,7 @@ def connect_ip_victim(user, ip):
     User.objects.filter(username=user).update(ipconnected=ip)
 
 def create_user_game(user):
-    User.objects.filter(username=user).update(gameip=ip_generator())
+    User.objects.filter(username=user).update(gameip=ip_generator(), gamepass=pwd_generator())
     User.objects.filter(username=user)
     UserStats.objects.create(user=user)
     Hardware.objects.create(userid=user)

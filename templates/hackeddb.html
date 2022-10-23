@@ -80,7 +80,12 @@
 <h1>DATABASE</h1>
 <ul>
 {% for ip in ipshacked %}
-    <li>{{ ip.iphacked }} </li>
+
+        <a href="/netip={{ ip.iphacked }}">{{ ip.iphacked }}</a>
+</p>
+
+
+  
 {% empty %}
     <li>Sem ips no banco de dados</li>
 {% endfor %}

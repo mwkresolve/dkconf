@@ -20,10 +20,10 @@ def disconnectuser(request):
     info_user = User.objects.filter(username=request.user).values()
     ip_connect = info_user[0]['ipconnected']
     if ip_connect == 'off':
-        return HttpResponseRedirect("/internet/")
+        return HttpResponseRedirect("/off/")
     else:
         disconnect_ip_victim(request.user)
-        return HttpResponseRedirect("/internet/")
+        return HttpResponseRedirect("/netip=0.0.0.0")
 
 @login_required
 def IpConnectView(request):
@@ -52,8 +52,9 @@ def IpConnectView(request):
 
         if request.POST.get('logout') == 'logout':
             disconnectuser(request)
+            return HttpResponseRedirect(f"/netip={ip_connect}")
     if ip_connect == 'off':
-        return HttpResponseRedirect("/internet/")
+        return HttpResponseRedirect("/netip=0.0.0.0")
     victim = User.objects.filter(gameip=ip_connect).values('log', 'username', 'id')
     softs_victim = Software.objects.filter(userid=victim[0]['id']).values()
 
@@ -66,10 +67,17 @@ def hackip(request, msgbroke, ip_victim):
         if info['isnpc']:
             text_npc = f'Olá invasor, meu nome é {info["username"]}.</br> quem sabe eu possa te ajudar se você me responder uma pergunta ' \
                        f'\nMas espera ai, sera que você consegue me invadir?'
-            return render(request, "internethack.html", {'ip_victim': ip_victim,
-                                                         'text_npc': text_npc, 'msgbroke':msgbroke})
+            """return render(request, "internethack.html", {'ip_victim': ip_victim,
+                                                         'text_npc': text_npc, 
+                                                         'msgbroke':msgbroke})
+            """
+            return HttpResponseRedirect(f"/netip={ip_victim}" , {'ip_victim': ip_victim,
+                                                         'text_npc': text_npc, 
+                                                         'msgbroke':msgbroke})
         else:
-            return render(request, "internethack.html", {'msgbroke':msgbroke})
+            #return render(request, "internethack.html", {'msgbroke':msgbroke})
+            return HttpResponseRedirect(f"/netip={ip_victim}", {'msgbroke':msgbroke})
+
 
 @login_required
 def IpView(request):
@@ -80,6 +88,8 @@ def IpView(request):
     if ip_connect != 'off':
         return HttpResponseRedirect(f"/netip={ip_connect}isconnected=ok")
     if request.method == "POST":
+        if request.POST.get('action') == 'gotoip':
+            pass
         if request.POST.get('action') == 'login':
             user = request.POST.get('user')
             pw = request.POST.get('pass')
