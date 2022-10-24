@@ -1,7 +1,7 @@
 import re
 from datetime import timedelta, date, datetime
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from django.views.generic import TemplateView
 from controller.models import User, Processes, Software, TypeSofts, HackedDatabase
 from controller.functionsdb import *
@@ -89,13 +89,12 @@ def IpView(request):
         return HttpResponseRedirect(f"/netip={ip_connect}isconnected=ok")
     if request.method == "POST":
         if request.POST.get('action') == 'search':
-
-            ipsearch = request.POST.get('ip')
+            ipsearch = request.POST.get('ip').strip()
             findip =  re.findall(regex_ip,ipsearch)
             if len(findip) < 1:
                 msgerro = f'o endereço digitado |{ ipsearch }| não é valido, digite novamente'
                 return render(request, "internetip.html", {'msgerro': msgerro})
-            return HttpResponseRedirect(f"/netip={ipsearch}")
+            return HttpResponseRedirect(f"/netip={ipsearch}", {'ip_victim': ip_victim})
         if request.POST.get('action') == 'login':
             print(request.POST)
             user = request.POST.get('user')
@@ -153,7 +152,7 @@ def IpView(request):
                 return render(request, "internethack.html", {'ip_victim': ip_victim,
                                                              'text_npc': text_npc, 'pwvictim': pwvictim} )
             else:
-                return render(request, "internethack.html", {'pwvictim': pwvictim})
+                return render(request, "internethack.html", {'ip_victim': ip_victim, 'pwvictim': pwvictim})
 
     return render(request, "internetip.html")
 
