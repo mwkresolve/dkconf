@@ -29,12 +29,13 @@ urlpatterns = [
     path("", include("gameusertasks.urls")),
     path("", include("gamesoftware.urls")),
     path("", include("gamehardware.urls")),
-    path("", include("gameinternet.urls")),
+    
     path("accounts/", include("allauth.urls")),
     path("log/", LogPageView.as_view(), name="gamelogfile"),
     #path("ranking/", RankingPageView.as_view(), name="gameranking"),
     path('admin/', admin.site.urls),
     path('controller/', login_required(Controller.as_view()), name='controller'),
     path('', login_required(HomePageView), name='home'),
+    path("", include("gameinternet.urls")),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

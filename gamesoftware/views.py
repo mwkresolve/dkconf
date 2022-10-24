@@ -10,10 +10,5 @@ class SoftwareView(TemplateView):
     def get(self, request):
         softs = Software.objects.filter(userid=request.user).values()
         typesoft = TypeSofts.objects.filter()
-        print('------------------------------------')
-        print(typesoft)
-
-        print('------------------------------------')
-
         return render(request, self.template_name, {'softwares': softs, 'typesoft':typesoft})
 

@@ -69,20 +69,31 @@
 
 
 
-<form action="#">
- <input type="submit" class="btn" value="reset softs" name="resetsoftsnpc">
-</form>
-</br>
 
 
 <div class="span9">
 <div class="widget-box" >
 <div class="widget-content padding">
 <div class="span12">
-<form action="/" method="get" class="form-horizontal">
-<div class="browser-input">
-IP address: <input class="browser-bar" name="ip" type="text" value="{{ ip_victim }}">
-<input  type="submit" class="btn btn-inverse" value="Go">
+
+
+
+<form id="searchform" class="form-vertical" action="" method="POST">
+{% csrf_token %}
+      <input type="hidden" name="action" value="search">
+<div class="control-group">
+<div class="controls">
+<div class="input-prepend">
+<span class="add-on"><i class="fa fa-user"></i></span><input type="text" name="ip" placeholder="ip" value="{{ ip_victim }}">
+
+<div class="form-actions">
+<span class="pull-right" style="margin-top: -20px;"><input type="submit" class="btn btn-inverse" value="searchip" ></span>
+
+</div>
+</form>
+</div>
+</br></br></br></br></br>
+
 
 </div>
 </form>
@@ -100,7 +111,7 @@ IP address: <input class="browser-bar" name="ip" type="text" value="{{ ip_victim
 
 
 
-<p>Server {{ ip_victim }} is <font color="green"><b>online</b></font><span class="label label-warning pull-right">Whois</span></p>
+<p>Server {{ ip_victim }} is <font color="green"><b>online</b></font><span class="label label-warning pull-right"></span></p>
   {{ text_vpc }}  {{ text_npc|safe }}
 
 {{ msgerro }}

@@ -88,9 +88,16 @@ def IpView(request):
     if ip_connect != 'off':
         return HttpResponseRedirect(f"/netip={ip_connect}isconnected=ok")
     if request.method == "POST":
-        if request.POST.get('action') == 'gotoip':
-            pass
+        if request.POST.get('action') == 'search':
+
+            ipsearch = request.POST.get('ip')
+            findip =  re.findall(regex_ip,ipsearch)
+            if len(findip) < 1:
+                msgerro = f'o endereço digitado |{ ipsearch }| não é valido, digite novamente'
+                return render(request, "internetip.html", {'msgerro': msgerro})
+            return HttpResponseRedirect(f"/netip={ipsearch}")
         if request.POST.get('action') == 'login':
+            print(request.POST)
             user = request.POST.get('user')
             pw = request.POST.get('pass')
             info_victim = User.objects.filter(gameip=ip_victim, gamepass=pw).values()
@@ -100,9 +107,7 @@ def IpView(request):
             else:
                 connect_ip_victim(request.user, ip_victim)
                 return HttpResponseRedirect(f"/netip={ip_victim}isconnected=ok")
-
         if request.POST.get('tryhack') == 'Try hack':
-
             if ip_victim == User.objects.filter(username=request.user).values('gameip')[0]['gameip']:
                 # pend criar msg que esta tentando invadir o proprio ip
                 return HttpResponseRedirect(f"/netip={ip_victim}")
