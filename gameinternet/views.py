@@ -3,7 +3,7 @@ from datetime import timedelta, date, datetime
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, HttpResponse
 from django.views.generic import TemplateView
-from controller.models import User, Processes, Software, TypeSofts, HackedDatabase
+from controller.models import User, Processes, Software, TypeSofts, HackedDatabase, LastIp
 from controller.functionsdb import *
 from django.contrib.auth.decorators import login_required
 
@@ -85,6 +85,9 @@ def IpView(request):
     info_user = User.objects.filter(username=request.user).values()
     ip_victim = re.findall(regex_ip, request.get_full_path())[0]
     ip_connect = info_user[0]['ipconnected']
+    last_ip = LastIp.objects.filter(user=request.user).values()
+    LastIp.objects.filter(user=request.user).update(ip=ip_victim)
+
     if ip_connect != 'off':
         return HttpResponseRedirect(f"/netip={ip_connect}isconnected=ok")
     if request.method == "POST":
@@ -159,5 +162,7 @@ def IpView(request):
 
 @login_required
 def InternetView(request):
-            return HttpResponseRedirect("/netip=0.0.0.0")
+        last_ip = LastIp.objects.filter(user=request.user).values()
+        print(last_ip)
+        return HttpResponseRedirect(f"/netip={ last_ip[0]['ip'] }")
 

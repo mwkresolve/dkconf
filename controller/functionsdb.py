@@ -16,6 +16,7 @@ def create_user_game(user):
     Hardware.objects.create(userid=user)
     HistUsersCurrent.objects.create(userid=user)
     User.objects.update(stats_game=True)
+    LastIp.objects.create(user=user)
 
 
 def creategame():

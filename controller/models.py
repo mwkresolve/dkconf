@@ -16,13 +16,23 @@ class User(AbstractUser):
     ipconnected = models.CharField(max_length=20,  default='off')
     log = models.TextField(default=f'operating system created at {timezone.now()}')
 
-
     def __str__(self):
         return self.username
 
 
     def get_tasks(self):
         return Processes.objects.filter(userid=self.id, completed=False).values()
+
+class LastIp(models.Model):
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
+    ip = models.CharField(max_length=20, default='0.0.0.0')
+    
+    def __str__(self):
+        return self.ip
 
 
 
