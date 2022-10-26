@@ -48,8 +48,6 @@ def IpConnectView(request):
                                          timestart=datetime.now(),
                                          timeend=endtime, softdownload=softid)
                 return HttpResponseRedirect("/task/")
-
-
         if request.POST.get('logout') == 'logout':
             disconnectuser(request)
             return HttpResponseRedirect(f"/netip={ip_connect}")

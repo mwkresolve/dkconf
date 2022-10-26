@@ -159,10 +159,12 @@
 						<font color="green">{{ soft.softsize }}</font>
 						</td>
 						          <td style="text-align: center">
-                            <form method="post" name="editlog">
+
+                        <form method="post" name="upload">
                             {% csrf_token %}
-                        <input type="submit" value="Download" name='downsoftid={{ soft.id }}'>
+                        <input type="submit" value="upload" name='uploadsoftid={{ soft.id }}'>
                          
+                        
                         
                             <form method="post" name="delsoft">
                             {% csrf_token %}

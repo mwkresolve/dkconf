@@ -18,8 +18,10 @@ def TasksView(request):
 
 
 def CompleteTask(request):
+
     get_id = request.get_full_path().split('%3D')[1]
     task = Processes.objects.filter(userid=request.user, id=get_id).values()
+    ip_connect = User.objects.filter(username=request.user).values('ipconnected')[0]['ipconnected']
     # garantir que somente vai manipular as proprias tasks
     if len(task) > 0:
         # garantir que nao vai rodar processo ja concluido
@@ -75,8 +77,22 @@ def CompleteTask(request):
                     Processes.objects.filter(userid=request.user, id=get_id).update(completed=True)
                     return HttpResponseRedirect("/software/")
                     
-                    
-
+                if infos['action'] == 5: # upload soft
+                    # criar condicao soft duplicado etc...
+                    softupload = Software.objects.filter(id=infos['softupload']).values()
+                    ip_upload = User.objects.filter(gameip=infos['uploadip'])[0]
+                    typeofsoft = TypeSofts.objects.get(id=softupload[0]['softtype_id'])
+                    Software.objects.create(
+                                    userid = ip_upload,
+                                    softname = softupload[0]['softname'],
+                                    softversion = softupload[0]['softversion'],
+                                    softsize = softupload[0]['softsize'],
+                                    softram = softupload[0]['softram'],
+                                    softtype = typeofsoft)
+                    update_reputation(request.user, 50)
+                    Processes.objects.filter(userid=request.user, id=get_id).update(completed=True)
+                    return HttpResponseRedirect("/internet/")
+                    # print(softupload)
 
 
     else:

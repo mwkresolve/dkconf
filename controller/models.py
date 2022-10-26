@@ -152,3 +152,5 @@ class Processes(models.Model):
     iptryhack = models.CharField(max_length=20, default='')
     completed = models.BooleanField(default=False)
     softdownload = models.IntegerField(default=0)
+    softupload = models.IntegerField(default=0)
+    uploadip = models.CharField(max_length=20, default='')
