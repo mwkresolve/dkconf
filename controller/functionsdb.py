@@ -1,6 +1,8 @@
 from .models import *
 import json
 from my_tools.functions import pwd_generator
+import names
+import random
 
 
 def disconnect_ip_victim(user):
@@ -17,6 +19,19 @@ def create_user_game(user):
     HistUsersCurrent.objects.create(userid=user)
     User.objects.update(stats_game=True)
     LastIp.objects.create(user=user)
+
+
+
+def npc_basic_config():
+
+        for c in range(100):
+            gameip = ip_generator()
+            name = f'{names.get_last_name()}_{names.get_first_name()}'
+            print(name)
+            user_1 = User.objects.create_user(f'{name}', f'{name}@chase.com', 'chevyspgererassword', isnpc=1)
+            create_user_game(user_1)
+            update_reputation(user_1, random.randint(100, 10000))
+
 
 
 def creategame():
@@ -46,6 +61,7 @@ def creategame():
 def create_npc_game():
     npc_data = open('my_tools/info_bots.json').read()
     npcList = json.loads(npc_data)
+
     for bot in npcList:
         name = npcList[bot]['nome']
         gameip = npcList[bot]['ip']
@@ -56,6 +72,8 @@ def create_npc_game():
                             isnpc=True,
                             gameip=gameip,
                             gamepass=pwd_generator())
+
+
     create_hardware_npc()
     create_softs_npc()
 

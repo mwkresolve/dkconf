@@ -67,16 +67,19 @@ def hackip(request, msgbroke, ip_victim):
         if info['isnpc']:
             text_npc = f'Olá invasor, meu nome é {info["username"]}.</br> quem sabe eu possa te ajudar se você me responder uma pergunta ' \
                        f'\nMas espera ai, sera que você consegue me invadir?'
-            """return render(request, "internethack.html", {'ip_victim': ip_victim,
+            """
+            return render(request, "internethack.html", {'ip_victim': ip_victim,
                                                          'text_npc': text_npc, 
                                                          'msgbroke':msgbroke})
+
             """
             return HttpResponseRedirect(f"/netip={ip_victim}" , {'ip_victim': ip_victim,
                                                          'text_npc': text_npc, 
                                                          'msgbroke':msgbroke})
+                                                         
         else:
-            #return render(request, "internethack.html", {'msgbroke':msgbroke})
-            return HttpResponseRedirect(f"/netip={ip_victim}", {'msgbroke':msgbroke})
+            # return render(request, "internethack.html", {'msgbroke':msgbroke})
+            return HttpResponseRedirect(f"/netip={ip_victim}", {'ip_victim': ip_victim, 'msgbroke':msgbroke})
 
 
 @login_required
@@ -109,6 +112,8 @@ def IpView(request):
             else:
                 connect_ip_victim(request.user, ip_victim)
                 return HttpResponseRedirect(f"/netip={ip_victim}isconnected=ok")
+        
+
         if request.POST.get('tryhack') == 'Try hack':
             if ip_victim == User.objects.filter(username=request.user).values('gameip')[0]['gameip']:
                 # pend criar msg que esta tentando invadir o proprio ip

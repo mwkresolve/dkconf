@@ -34,10 +34,14 @@
 </div>
 
 
-<form method="post" name="hackip" >
- <input type="submit" value="Try hack" name='tryhack'>
-    {% csrf_token %}
-</form>
 
-{{ msgbroke|safe }}
+{% if pwvictim == '' %}
+	<form method="post" name="hackip" >
+	<input type="submit" value="Try hack" name='tryhack'>
+	{% csrf_token %}
+	</form>
+{% endif %}
+
+
+{{ msgbroke | safe }}
 {% endblock %}

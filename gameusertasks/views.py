@@ -39,15 +39,19 @@ def CompleteTask(request):
                     maxlvl_hash_victim = softs_victim.aggregate(Max('softversion'))['softversion__max']
                     if not maxlvl_hash_victim:
                         maxlvl_hash_victim = 0
+
                     if maxlvl_crc_user >= maxlvl_hash_victim:
                         HackedDatabase.objects.create(userid=request.user, iphacked=ip_victim)
                         Processes.objects.filter(userid=request.user, id=get_id).update(completed=True)
                         msgbroke = """<span style="color: green"> Você conseguiu hackear o servidor</span>"""
                         return hackip(request, msgbroke, ip_victim)
                     else:
+ 
                         Processes.objects.filter(userid=request.user, id=get_id).update(completed=True)
                         msgbroke = """<span style="color: red"> Seu cracker não é bom o suficiente</span>"""
                         return hackip(request, msgbroke, ip_victim)
+
+
                 if infos['action'] == 3:  # download soft
                             # impedir download proprio soft, impedir download soft igual
                             softdown = Software.objects.filter(id=infos['softdownload']).values()
