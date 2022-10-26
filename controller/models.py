@@ -154,3 +154,4 @@ class Processes(models.Model):
     softdownload = models.IntegerField(default=0)
     softupload = models.IntegerField(default=0)
     uploadip = models.CharField(max_length=20, default='')
+    delmysoft =  models.BooleanField(default=False)

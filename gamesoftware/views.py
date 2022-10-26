@@ -28,7 +28,7 @@ class SoftwareView(TemplateView):
                 Processes.objects.create(userid=request.user,
                                          action=4,
                                          timestart=datetime.now(),
-                                         timeend=endtime, softdownload=softid)
+                                         timeend=endtime, softdownload=softid, delmysoft=True)
                 return HttpResponseRedirect("/task/")
             if 'uploadsoftid=' in valor:
                 ip_connect = User.objects.filter(username=request.user).values('ipconnected')[0]['ipconnected']

@@ -160,10 +160,17 @@
 						</td>
 						          <td style="text-align: center">
 
+                                    
+                        {% if user.ipconnected != 'off' %}
+                        
+
                         <form method="post" name="upload">
                             {% csrf_token %}
                         <input type="submit" value="upload" name='uploadsoftid={{ soft.id }}'>
-                         
+                        
+
+                        {% endif %}
+
                         
                         
                             <form method="post" name="delsoft">
@@ -171,7 +178,10 @@
                         <input type="submit" value="delete" name='delsoftid={{ soft.id }}'>
                         </td>
 						</tr>
+                        
 						{% endfor %}
+         
+
 
 
 

@@ -75,7 +75,9 @@ def CompleteTask(request):
                     softdel.delete()
                     update_reputation(request.user, 50)
                     Processes.objects.filter(userid=request.user, id=get_id).update(completed=True)
-                    return HttpResponseRedirect("/software/")
+                    if infos['delmysoft']:
+                        return HttpResponseRedirect("/software/")
+                    return HttpResponseRedirect("/internet/")
                     
                 if infos['action'] == 5: # upload soft
                     # criar condicao soft duplicado etc...
