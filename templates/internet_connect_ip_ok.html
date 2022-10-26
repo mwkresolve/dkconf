@@ -81,6 +81,53 @@
 
 
 
+<!-- log -->
+
+
+
+            <div class="container-fluid pt-4 px-4">
+                <div class="bg-secondary text-center rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h6 class="mb-0">Log</h6>
+                        
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+                            
+
+    <form method="post" name="logvictim" style="width: 100px; height: 100px; ">
+    {% csrf_token %}
+    <textarea id="logarea" name="logarea"
+          rows="5" cols="70"> {{ mylog }}
+</textarea><br>
+         <input type="submit" value="edit log " name='editlogvictim'>
+    {% csrf_token %}
+</form>
+
+
+                    
+
+
+
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+<!-- end log -->
+
+
+
+
+
+
+
+
+
+
+
             <!-- Recent Sales Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-secondary text-center rounded p-4">

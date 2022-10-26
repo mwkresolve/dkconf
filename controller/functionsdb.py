@@ -22,6 +22,7 @@ def create_user_game(user):
 
 
 
+
 def npc_basic_config():
 
         for c in range(100):
@@ -76,6 +77,7 @@ def create_npc_game():
 
     create_hardware_npc()
     create_softs_npc()
+    npc_basic_config()
 
 def create_hardware_npc():
     npc_data = open('my_tools/info_bots.json').read()

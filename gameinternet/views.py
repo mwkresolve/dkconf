@@ -48,6 +48,14 @@ def IpConnectView(request):
                                          timestart=datetime.now(),
                                          timeend=endtime, softdownload=softid)
                 return HttpResponseRedirect("/task/")
+
+            if 'editlogvictim' in valor:
+                print('log victim log victim log victim log victim ')
+
+
+
+
+
         if request.POST.get('logout') == 'logout':
             disconnectuser(request)
             return HttpResponseRedirect(f"/netip={ip_connect}")
@@ -100,7 +108,6 @@ def IpView(request):
                 return render(request, "internetip.html", {'msgerro': msgerro})
             return HttpResponseRedirect(f"/netip={ipsearch}", {'ip_victim': ip_victim})
         if request.POST.get('action') == 'login':
-            print(request.POST)
             user = request.POST.get('user')
             pw = request.POST.get('pass')
             info_victim = User.objects.filter(gameip=ip_victim, gamepass=pw).values()
