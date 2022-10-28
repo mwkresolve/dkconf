@@ -74,6 +74,10 @@
                     <div class="table-responsive">
                         <table class="table text-start align-middle table-bordered table-hover mb-0">
 
+                            {% if verify_solved == 1 %}
+                            Parabéns você resolveu este enigma</br>
+                            o próximo enigma esta logalizado no ip {{ next_ip }}
+                            {% else %}
 
 
                             {{ pergunta }}</br>
@@ -99,6 +103,6 @@
                 </div>
             </div>
 
-
+{% endif %}
 
 {% endblock %}

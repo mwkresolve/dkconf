@@ -17,7 +17,7 @@ class CaseCreateEnigma(unittest.TestCase):
             # bot_trail = ips_trilha[c]['username']
             current_ip = ips_trilha[c - 1]['gameip']
 
-            next_ip = ips_trilha[c + 1]['gameip']
+            next_ip = ips_trilha[c]['gameip']
             typesoft = TypeSofts.objects.get(type='.enigma')
 
             Enigma.objects.create(ip_trail= bot_trail,

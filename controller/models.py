@@ -37,10 +37,12 @@ class Enigma(models.Model):
     resposta = models.CharField(max_length=30000, default='')
     current_ip = models.CharField(max_length=30000, default='')
     next_ip = models.CharField(max_length=30, default='')
+
+
+class enigma_solved(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    enigma_ip = models.CharField(max_length=30000, default='')
     solved = models.BooleanField(default=False)
-
-
-
 
 class LastIp(models.Model):
     user = models.OneToOneField(

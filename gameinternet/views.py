@@ -182,23 +182,43 @@ def InternetView(request):
         return HttpResponseRedirect(f"/netip={ last_ip[0]['ip'] }")
 
 def EnigmaView(request):
-    ip_connected = User.objects.filter().values('ipconnected')[0]['ipconnected']
+    info_user = User.objects.filter(username=request.user).values()
+    ip_connected = info_user[0]['ipconnected']
     get_ip_trail = User.objects.filter(gameip=ip_connected).values()
     current_enigma = Enigma.objects.filter(ip_trail_id=get_ip_trail[0]['id']).values()
+
+
     pergunta = ''
     resposta = ''
+    verify_solved = ''
+    next_ip = ''
+    a = enigma_solved.objects.filter(user=request.user, enigma_ip=ip_connected)
+    issolved = a.values()
     for quest in current_enigma:
-        pergunta = quest['pergunta']
-        resposta = quest['resposta'].strip()
+        if quest['current_ip'] == ip_connected:
+            pergunta = quest['pergunta']
+            resposta = quest['resposta'].strip()
+    try:
+        verify_solved = issolved[0]['solved']
+        next_ip = current_enigma[0]['next_ip']
+    except:
+        a = enigma_solved.objects.filter(user=request.user, enigma_ip=ip_connected)
+        current_enigma = Enigma.objects.filter(ip_trail_id=get_ip_trail[0]['id']).values()
+        a.create(user=request.user, enigma_ip=ip_connected)
+        issolved = a.values()
+
+        verify_solved = issolved[0]['solved']
+        next_ip = current_enigma[0]['next_ip']
+
     if request.method == "POST":
         if request.POST.get('action') == 'resp':
             resp_user = request.POST.get('resp').strip()
             if resposta == resp_user:
-                print('acertou')
-            else:
-                print('errou')
+                enigma_solved.objects.filter(user_id=request.user, enigma_ip=ip_connected).update(solved=True)
+                return HttpResponseRedirect(f"/netip={ip_connected}isconnected=ok=enigma")
 
-    return render(request, "enigma.html", {'pergunta': pergunta})
+
+    return render(request, "enigma.html", {'pergunta': pergunta, 'verify_solved':verify_solved, 'next_ip':next_ip})
 
 
 
