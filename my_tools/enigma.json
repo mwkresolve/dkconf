@@ -1,0 +1,46 @@
+{
+  "enigma1": {
+    "pergunta": "Qual  password foi o mais usado na internet?",
+    "resposta": "123456"
+  },
+  "enigma2": {
+    "pergunta": "O que significa a sigla “www” na internet?",
+    "resposta": "world wide web"
+  },
+  "enigma3": {
+    "pergunta": "Qual foi o primeiro tweet da história?",
+    "resposta": "apenas configurando meu twttr"
+  },
+  "enigma4": {
+    "pergunta": "Qual foi a duração do primeiro vídeo do Youtube? responda em segundos",
+    "resposta": "19"
+  },
+  "enigma5": {
+    "pergunta": "Qual foi a primeira rede social da história da internet?",
+    "resposta": "classmate"
+  },
+  "enigma6": {
+    "pergunta": "Em qual ano foi criado o primeiro smartphone da história?",
+    "resposta": "1994"
+  },
+  "enigma7": {
+    "pergunta": "Quantos bits cabem em um byte?",
+    "resposta": "8"
+  },
+  "enigma8": {
+    "pergunta": "O Kernel Linux foi criado pelo...",
+    "resposta": "Linus Torvalds"
+  },
+  "enigma9": {
+    "pergunta": "quem qual ano foi lançado o Windows 1.01",
+    "resposta": "1985"
+  },
+  "enigma10": {
+    "pergunta": "qual esporte preferido do criador do dark conflicts?",
+    "resposta": "skate"
+  },
+  "enigma11": {
+    "pergunta": "você chegou no ultimo",
+    "resposta": "parabens"
+  }
+}

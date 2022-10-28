@@ -193,6 +193,9 @@
                                 {{ soft.softname }}.Torrent
                             {% elif soft.softtype_id == 18 %}
                                 {{ soft.softname }}.Miner
+                             {% elif soft.softtype_id == 19 %}
+                                {{ soft.softname }}.enigma
+
 
                             {% endif %}
 
@@ -215,8 +218,13 @@
 						<td style="text-align: center">
 
 
+                        {% if soft.softtype_id == 19 %}
 
+                            <form method="post" name="enigma">
+						    {% csrf_token %}
+						<input type="submit" value="Resolver" name='enigma'>
 
+						{% else %}
 
 						    <form method="post" name="download">
 						    {% csrf_token %}
@@ -227,7 +235,9 @@
 						    {% csrf_token %}
 						<input type="submit" value="delete" name='delsoftid={{ soft.id }}'>
 						</td>
+                            {% endif %}
 						{% endfor %}
+
 
 
 

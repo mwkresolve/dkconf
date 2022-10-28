@@ -5,6 +5,10 @@ import names
 import random
 
 
+def verify_create_game():
+    a = TypeSofts.objects.filter().values()
+    print(a)
+
 def disconnect_ip_victim(user):
     User.objects.filter(username=user).update(ipconnected='off')
 
@@ -55,6 +59,7 @@ def creategame():
         '16': '.Analyzer',
         '17': '.Torrent',
         '20': '.Miner',
+        '21': '.enigma',
     }
     for soft in Softs_Types:
         TypeSofts.objects.create(type=Softs_Types[soft])
@@ -72,7 +77,8 @@ def create_npc_game():
         User.objects.create(username=name,
                             isnpc=True,
                             gameip=gameip,
-                            gamepass=pwd_generator())
+                            gamepass=pwd_generator(),
+                            istrail=True)
 
 
     create_hardware_npc()
@@ -99,6 +105,11 @@ def reset_softs_npc():
         
     create_softs_npc()
 
+def create_enigmas():
+    ips_trilha = User.objects.filter(istrail=True)
+    print(ips_trilha)
+
+
 def create_softs_npc():
     npc_data = open('my_tools/info_bots.json').read()
     npcList = json.loads(npc_data)
@@ -116,6 +127,7 @@ def create_softs_npc():
                                     softsize=softsize,
                                     softram=softram,
                                     softtype=typesoft, softhidden=0, softhiddenwith=0)
+
         softsize += 100
         softram += 25
 

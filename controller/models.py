@@ -4,6 +4,9 @@ from my_tools.functions import pwd_generator, ip_generator
 from django.utils import timezone
 
 
+
+
+
 class User(AbstractUser):
     bio = models.TextField(blank=True)
     gamepass = models.CharField(max_length=10, default='')
@@ -15,13 +18,29 @@ class User(AbstractUser):
     isnpc = models.BooleanField(default=False)
     ipconnected = models.CharField(max_length=20,  default='off')
     log = models.TextField(default=f'operating system created at {timezone.now()}')
-
+    istrail = models.BooleanField(default=False)
     def __str__(self):
         return self.username
 
 
     def get_tasks(self):
         return Processes.objects.filter(userid=self.id, completed=False).values()
+
+
+class Enigma(models.Model):
+    ip_trail = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
+    pergunta = models.CharField(max_length=30000, default='')
+    resposta = models.CharField(max_length=30000, default='')
+    current_ip = models.CharField(max_length=30000, default='')
+    next_ip = models.CharField(max_length=30, default='')
+    solved = models.BooleanField(default=False)
+
+
+
 
 class LastIp(models.Model):
     user = models.OneToOneField(

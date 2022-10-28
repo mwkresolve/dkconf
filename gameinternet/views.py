@@ -51,6 +51,8 @@ def IpConnectView(request):
 
             if 'editlogvictim' in valor:
                 print('log victim log victim log victim log victim ')
+            if 'enigma' in valor:
+                return HttpResponseRedirect(f"/netip={ip_connect}isconnected=ok=enigma")
 
 
 
@@ -172,7 +174,31 @@ def IpView(request):
 
 @login_required
 def InternetView(request):
+
         last_ip = LastIp.objects.filter(user=request.user).values()
-        print(last_ip)
+        if len(last_ip) < 1:
+            last_ip = '0.0.0.0'
+            return HttpResponseRedirect(f"/netip={last_ip}")
         return HttpResponseRedirect(f"/netip={ last_ip[0]['ip'] }")
+
+def EnigmaView(request):
+    ip_connected = User.objects.filter().values('ipconnected')[0]['ipconnected']
+    get_ip_trail = User.objects.filter(gameip=ip_connected).values()
+    current_enigma = Enigma.objects.filter(ip_trail_id=get_ip_trail[0]['id']).values()
+    pergunta = ''
+    resposta = ''
+    for quest in current_enigma:
+        pergunta = quest['pergunta']
+        resposta = quest['resposta'].strip()
+    if request.method == "POST":
+        if request.POST.get('action') == 'resp':
+            resp_user = request.POST.get('resp').strip()
+            if resposta == resp_user:
+                print('acertou')
+            else:
+                print('errou')
+
+    return render(request, "enigma.html", {'pergunta': pergunta})
+
+
 
