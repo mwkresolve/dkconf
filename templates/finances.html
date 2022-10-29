@@ -2,7 +2,6 @@
 
 
 
-
         <!-- Sidebar Start -->
         {% block menuleft %}
         <div class="sidebar pe-4 pb-3">
@@ -19,15 +18,15 @@
                         <h6 class="mb-0">{{ user }}</h6>
                         <span>ip: {{ user.gameip }}</span>
                     </div>
-                </div>  
-
-                       
+                </div>
 
 
-                        
 
 
-                
+
+
+
+
                 <div class="navbar-nav w-100">
                     <a href="/" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>HOME</a>
 
@@ -49,15 +48,16 @@
                     <a href="/database/" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>DATABASE</a>
 
 
-                     <a href="/internet/" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>NETWORK</a>
+                     <a href="/internet/" class="nav-item nav-link "><i class="fa fa-chart-bar me-2"></i>NETWORK</a>
 
 
                      <a href="/ranking/" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>ranking</a>
 
-  <a href="/finances/" class="nav-item nav-link "><i class="fa fa-chart-bar me-2"></i>Finances</a>
+                     <a href="/finances/" class="nav-item nav-link active"><i class="fa fa-chart-bar me-2"></i>Finances</a>
 
 
-                    
+
+
                 </div>
             </nav>
         </div>
@@ -65,63 +65,8 @@
         <!-- Sidebar End -->
 
 
-
 {% block content %}
 
 
 
-
-
-<div class="span9">
-<div class="widget-box" >
-<div class="widget-content padding">
-<div class="span12">
-
-
-
-<form id="searchform" class="form-vertical" action="" method="POST">
-{% csrf_token %}
-      <input type="hidden" name="action" value="search">
-<div class="control-group">
-<div class="controls">
-<div class="input-prepend">
-<span class="add-on"><i class="fa fa-user"></i></span><input type="text" name="ip" placeholder="ip" value="{{ ip_victim }}">
-
-<div class="form-actions">
-<span class="pull-right" style="margin-top: -20px;"><input type="submit" class="btn btn-inverse" value="searchip" ></span>
-
-</div>
-</form>
-</div>
-</br></br></br></br></br>
-
-
-</div>
-</form>
-</div>
-<div style="clear: both;"></div>
-</div>
-</div>
-<div class="widget-box">
-<div class="widget-title">
-
-</div>
-<div class="widget-content padding noborder">
-<div class="span12">
-
-
-
-
-<p>Server {{ ip_victim }} is <font color="green"><b>online</b></font><span class="label label-warning pull-right"></span></p>
-  {{ text_vpc }}  {{ text_npc|safe }}
-
-{{ msgerro }}
-
-
-{% block bloco_ip_valido %}
-  {% endblock %}
-
-
 {% endblock %}
-
-

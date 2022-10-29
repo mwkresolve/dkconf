@@ -29,7 +29,9 @@ urlpatterns = [
     path("", include("gameusertasks.urls")),
     path("", include("gamesoftware.urls")),
     path("", include("gamehardware.urls")),
-    
+    path("", include("gamefinances.urls")),
+
+
     path("accounts/", include("allauth.urls")),
     path("log/", LogPageView.as_view(), name="gamelogfile"),
     #path("ranking/", RankingPageView.as_view(), name="gameranking"),

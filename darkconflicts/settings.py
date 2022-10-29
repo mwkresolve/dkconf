@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'gameinternet',
     'gameranking',
     'gameusertasks',
+    'gamefinances',
+
     # 3d party
     "allauth",
     "allauth.account",
