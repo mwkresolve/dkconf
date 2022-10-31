@@ -1,3 +1,8 @@
+Discord para contribuidores : https://discord.gg/UdTc3w4j8f
+
+
+
+
 Projeto de um jogo onde o jogador será um hacker, tera que fazer missoes, instalar virus e gerar dinheiro e bitcoin, deixar seu servidor mais forte,  destruir servidores(bots do jogo e jogadores reais)
 
 ## Como utilizar
