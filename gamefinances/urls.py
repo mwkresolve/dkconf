@@ -1,11 +1,11 @@
 from django.urls import path
-from .views import financesview
+from .views import FinancesView
 
 
 app_name = "gamefinances"
 
 
 urlpatterns = [
-    path("finances/", financesview, name="gamefinances"),
+    path("finances/", FinancesView.as_view(), name="gamefinances"),
 
 ]

@@ -1,6 +1,7 @@
 from .models import *
+from gamefinances.models import *
 import json
-from my_tools.functions import pwd_generator
+from my_tools.functions import *
 import names
 import random
 
@@ -13,19 +14,20 @@ def connect_ip_victim(user, ip):
 
 def create_user_game(user):
     User.objects.filter(username=user).update(gameip=ip_generator(), gamepass=pwd_generator())
-    User.objects.filter(username=user)
-    UserStats.objects.create(user=user)
     Hardware.objects.create(userid=user)
     HistUsersCurrent.objects.create(userid=user)
     User.objects.update(stats_game=True)
     LastIp.objects.create(user=user)
+    WalletBitcoin.objects.create(userid=user,
+                                 account=generate_account(),
+                                 password=generate_pw(),
+                                 balance=1,)
+
 
 def npc_basic_config():
-
         for c in range(100):
             gameip = ip_generator()
             name = f'{names.get_last_name()}_{names.get_first_name()}'
-            print(name)
             user_1 = User.objects.create_user(f'{name}', f'{name}@chase.com', 'chevyspgererassword', isnpc=1)
             create_user_game(user_1)
             update_reputation(user_1, random.randint(100, 10000))

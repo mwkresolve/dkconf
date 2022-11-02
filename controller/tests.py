@@ -1,10 +1,7 @@
+from random import choice
+import string
 
-from .models import *
-from .functionsdb import *
-import names
-import random
-import unittest
-
+"""
 class CaseCreateEnigma(unittest.TestCase):
 
         ips_trilha = User.objects.filter(istrail=True).values()
@@ -32,6 +29,10 @@ class CaseCreateEnigma(unittest.TestCase):
                                     softram=0,
                                     softtype=typesoft, softhidden=0, softhiddenwith=0)
 
+"""
 
-
-
+chars = string.ascii_uppercase + string.digits + string.ascii_lowercase
+account = ''.join(choice(chars) for x in range(33))
+pw = ''.join(choice(chars) for x in range(64))
+print(account)
+print(pw)
