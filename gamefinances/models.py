@@ -8,8 +8,8 @@ class WalletBitcoin(models.Model):
         on_delete=models.CASCADE,
         primary_key=True,
     )
-    account = models.CharField(max_length=20 )
-    password = models.CharField(max_length=50 )
+    account = models.CharField(max_length=20)
+    password = models.CharField(max_length=50)
     balance = models.FloatField()
 
 

@@ -9,8 +9,10 @@ import random
 def disconnect_ip_victim(user):
     User.objects.filter(username=user).update(ipconnected='off')
 
+
 def connect_ip_victim(user, ip):
     User.objects.filter(username=user).update(ipconnected=ip)
+
 
 def create_user_game(user):
     User.objects.filter(username=user).update(gameip=ip_generator(), gamepass=pwd_generator())
@@ -21,17 +23,20 @@ def create_user_game(user):
     WalletBitcoin.objects.create(userid=user,
                                  account=generate_account(),
                                  password=generate_pw(),
-                                 balance=1,)
+                                 balance=1, )
+    WalletBank.objects.create(userid=user,
+                              account=generate_num_account(),
+                              password=pwd_generator(),
+                              balance=10000, )
 
 
 def npc_basic_config():
-        for c in range(100):
-            gameip = ip_generator()
-            name = f'{names.get_last_name()}_{names.get_first_name()}'
-            user_1 = User.objects.create_user(f'{name}', f'{name}@chase.com', 'chevyspgererassword', isnpc=1)
-            create_user_game(user_1)
-            update_reputation(user_1, random.randint(100, 10000))
-
+    for c in range(100):
+        gameip = ip_generator()
+        name = f'{names.get_last_name()}_{names.get_first_name()}'
+        user_1 = User.objects.create_user(f'{name}', f'{name}@chase.com', 'chevyspgererassword', isnpc=1)
+        create_user_game(user_1)
+        update_reputation(user_1, random.randint(100, 10000))
 
 
 def creategame():
@@ -59,6 +64,7 @@ def creategame():
     for soft in Softs_Types:
         TypeSofts.objects.create(type=Softs_Types[soft])
 
+
 def create_npc_game():
     npc_data = open('my_tools/info_bots.json').read()
     npcList = json.loads(npc_data)
@@ -75,11 +81,11 @@ def create_npc_game():
                             gamepass=pwd_generator(),
                             istrail=True)
 
-
     create_hardware_npc()
     create_softs_npc()
     create_enigmas()
     npc_basic_config()
+
 
 def create_hardware_npc():
     npc_data = open('my_tools/info_bots.json').read()
@@ -97,9 +103,10 @@ def reset_softs_npc():
     npcList = json.loads(npc_data)
     for bot in npcList:
         user = User.objects.get(username=npcList[bot]['nome'])
-        softs_npc =  Software.objects.filter(userid=user).delete()
-        
+        softs_npc = Software.objects.filter(userid=user).delete()
+
     create_softs_npc()
+
 
 def create_enigmas():
     ips_trilha = User.objects.filter(istrail=True).values()
@@ -149,11 +156,11 @@ def create_softs_npc():
         softsize += 100
         softram += 25
 
+
 def update_reputation(user, sumreputation):
     old_rep = HistUsersCurrent.objects.filter(userid=user).values('reputation')[0]['reputation']
     new_rep = old_rep + sumreputation
     HistUsersCurrent.objects.filter(userid=user).update(reputation=new_rep)
-
 
 
 def disconnect_ip_victim(user):
@@ -169,7 +176,3 @@ def connect_ip_victim(user, ip):
 def edit_my_log(user, logedit):
     User.objects.filter(username=user).update(log=logedit)
     update_reputation(user, 10)
-
-
-
-
