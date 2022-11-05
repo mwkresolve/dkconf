@@ -227,15 +227,19 @@
 
 						{% else %}
 
-						    <form method="post" name="download">
-						    {% csrf_token %}
-						<input type="submit" value="Download" name='downsoftid={{ soft.id }}'>
-						 
-						
-						    <form method="post" name="delsoft">
-						    {% csrf_token %}
-						<input type="submit" value="delete" name='delsoftid={{ soft.id }}'>
-						</td>
+
+
+                                	<form method="post" name="downloadsoft" >
+                                    <input type="submit" value="download" name='{{ soft.id }}'>
+                                    {% csrf_token %}
+                                    </form>
+
+
+   	                                <form method="post" name="delsoft" >
+                                    <input type="submit" value="delete" name='{{ soft.id }}'>
+                                    {% csrf_token %}
+                                    </form>
+
                             {% endif %}
 						{% endfor %}
 

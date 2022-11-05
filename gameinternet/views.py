@@ -22,50 +22,66 @@ def disconnectuser(request):
     info_user = User.objects.filter(username=request.user).values()
     ip_connect = info_user[0]['ipconnected']
     if ip_connect == 'off':
-        return HttpResponseRedirect("/off/")
+        return HttpResponse("continue tentando!")
     else:
         disconnect_ip_victim(request.user)
         return HttpResponseRedirect("/netip=0.0.0.0")
 
 
-@login_required
-def IpConnectView(request):
-    info_user = User.objects.filter(username=request.user).values()
-    ip_connect = info_user[0]['ipconnected']
-    if request.method == "POST":
-        for valor in request.POST:
-            if 'downsoftid=' in valor:
-                # pend nao deixar baixar se nao estiver espaço suficiente
-                softid = valor.split('=')[1]
+class ConnectIpView(CreateView):
+    template_name = "internet_connect_ip_ok.html.html"
+
+    def get(self, request, *args):
+        info_user = User.objects.filter(username=request.user).values()
+        ip_connect = info_user[0]['ipconnected']
+        victim = User.objects.filter(gameip=ip_connect).values('log', 'username', 'id')
+        softs_victim = Software.objects.filter(userid=victim[0]['id']).values()
+        return render(request, "internet_connect_ip_ok.html", {'softs_victim': softs_victim})
+    def post(self, request, *args):
+
+        info_user = User.objects.filter(username=request.user).values()
+        ip_connect = info_user[0]['ipconnected']
+        for info in request.POST:
+            print(info)
+            soft_id = info
+            if 'Resolver' in request.POST[info]:
+                return HttpResponseRedirect(f"/netip={ip_connect}isconnected=ok=enigma")
+            if 'logout' in request.POST[info]:
+                disconnectuser(request)
+                return HttpResponseRedirect(f"/netip={ip_connect}")
+            if 'download' in request.POST[info]:
+                chk_exists = len(Processes.objects.filter(userid=request.user,
+                                                         action=3,
+                                                          softdownload=soft_id, completed=False).values()) >= 1
+
+                if chk_exists:
+                    return HttpResponse("ja existe")
                 endtime = datetime.now() + timedelta(seconds=10)
                 Processes.objects.create(userid=request.user,
                                          action=3,
                                          timestart=datetime.now(),
-                                         timeend=endtime, softdownload=softid)
+                                         timeend=endtime, softdownload=soft_id)
                 return HttpResponseRedirect("/task/")
-            if 'delsoftid=' in valor:
-                softid = valor.split('=')[1]
+            if 'delete' in request.POST[info]:
+                chk_exists = len(Processes.objects.filter(userid=request.user,
+                                                          action=4,
+                                                          softdownload=soft_id, completed=False).values()) >= 1
+
+                if chk_exists:
+                    return HttpResponse("ja existe")
+
                 endtime = datetime.now() + timedelta(seconds=10)
                 Processes.objects.create(userid=request.user,
                                          action=4,
                                          timestart=datetime.now(),
-                                         timeend=endtime, softdownload=softid)
+                                         timeend=endtime, softdownload=soft_id)
                 return HttpResponseRedirect("/task/")
 
-            if 'editlogvictim' in valor:
-                print('log victim log victim log victim log victim ')
-            if 'enigma' in valor:
-                return HttpResponseRedirect(f"/netip={ip_connect}isconnected=ok=enigma")
 
-        if request.POST.get('logout') == 'logout':
-            disconnectuser(request)
-            return HttpResponseRedirect(f"/netip={ip_connect}")
-    if ip_connect == 'off':
-        return HttpResponseRedirect("/netip=0.0.0.0")
-    victim = User.objects.filter(gameip=ip_connect).values('log', 'username', 'id')
-    softs_victim = Software.objects.filter(userid=victim[0]['id']).values()
 
-    return render(request, "internet_connect_ip_ok.html", {'softs_victim': softs_victim})
+
+
+
 
 
 @login_required
@@ -128,11 +144,9 @@ class NetView(CreateView):
             return render(request, 'internethack.html',
                           {'form_find_ip': form_find_ip, 'form_login_victim': form_login_victim, 'ishacked': ishacked})
 
-    def post(self, request):
-
+    def post(self, request, *args):
         form_login_victim = VictimIp(initial={"login": "root"})
         ip_victim = re.findall(self.regex_ip, request.get_full_path())[0]
-
         if ip_victim == User.objects.filter(username=request.user).values('gameip')[0]['gameip']:
             return HttpResponse('nao pode se hackear')
         if 'ip' in request.POST:
@@ -145,7 +159,6 @@ class NetView(CreateView):
                 return HttpResponseRedirect(f"/netip={request.POST['ip']}")
             else:
                 return HttpResponseRedirect(f"/errrrrrrrrrrrrrrro")
-
         if 'pw' in request.POST:
             form_get_pw = VictimIp(request.POST)
             if form_get_pw.is_valid():
@@ -166,8 +179,6 @@ class NetView(CreateView):
                 return render(request, 'internethack.html', {'msgbroke': msgbroke,
                                                              'form_find_ip': form_find_ip,
                                                              'form_login_victim': form_login_victim})
-
-
         if 'tryhack' in request.POST:
             softs_user = Software.objects.filter(userid=request.user, softtype_id=1).values()
             # caso entre na pagina do proprio ip

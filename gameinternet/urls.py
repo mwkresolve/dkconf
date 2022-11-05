@@ -1,5 +1,5 @@
 from django.urls import path, re_path
-from .views import InternetView,  IpConnectView, disconnectuser, EnigmaView, NetView
+from .views import InternetView,  disconnectuser, EnigmaView, NetView, ConnectIpView
 app_name = "gameinternet"
 
 
@@ -12,7 +12,7 @@ urlpatterns = [
 
     re_path(
         r"^netip=(?:(?:0|1[\d]{0,2}|2(?:[0-4]\d?|5[0-5]?|[6-9])?|[3-9]\d?)\.){3}(?:0|1[\d]{0,2}|2(?:[0-4]\d?|5[0-5]?|[6-9])?|[3-9]\d?)isconnected=ok$",
-        IpConnectView, name="gameinternet"),
+        ConnectIpView.as_view(), name="gameinternet"),
 
     re_path(
         r"^netip=(?:(?:0|1[\d]{0,2}|2(?:[0-4]\d?|5[0-5]?|[6-9])?|[3-9]\d?)\.){3}(?:0|1[\d]{0,2}|2(?:[0-4]\d?|5[0-5]?|[6-9])?|[3-9]\d?)logout$",
