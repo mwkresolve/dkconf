@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cae94dd9-5ed6-4cdf-9ee6-9b54e38c0e4e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gameinternet/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/gameinternet/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gameinternet/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/gameinternet/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gameinternet/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/gameinternet/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gamelogfile/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/gamelogfile/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/internethack.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/internethack.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/internetip.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/internetip.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -1,5 +1,5 @@
 from django.urls import path, re_path
-from .views import InternetView, IpView, IpConnectView, disconnectuser, EnigmaView, NetView
+from .views import InternetView,  IpConnectView, disconnectuser, EnigmaView, NetView
 app_name = "gameinternet"
 
 

@@ -2,7 +2,7 @@ import re
 from datetime import timedelta, date, datetime
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, HttpResponse
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView , CreateView
 from controller.models import User, Processes, Software, TypeSofts, HackedDatabase, LastIp
 from controller.functionsdb import *
 from django.contrib.auth.decorators import login_required
@@ -91,8 +91,8 @@ def hackip(request, msgbroke, ip_victim):
             return HttpResponseRedirect(f"/netip={ip_victim}", {'ip_victim': ip_victim, 'msgbroke': msgbroke})
 
 
-@login_required
-class NetView(TemplateView):
+
+class NetView(CreateView):
     template_name = "internetip.html"
     regex_ip = '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+'
     form_find_ip = FindIp()
