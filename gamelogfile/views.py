@@ -8,7 +8,7 @@ from controller.functionsdb import *
 class LogPageView(TemplateView):
     template_name = "log.html"
 
-    def get(self, request):
+    def get(self, request, *args):
         my_log = User.objects.filter(username=request.user).values('log')[0]['log']
         return render(request, self.template_name, {'mylog': my_log})
 

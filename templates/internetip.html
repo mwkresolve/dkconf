@@ -3,6 +3,7 @@
 
 
 
+
         <!-- Sidebar Start -->
         {% block menuleft %}
         <div class="sidebar pe-4 pb-3">
@@ -72,56 +73,40 @@
 
 
 
-<div class="span9">
-<div class="widget-box" >
-<div class="widget-content padding">
-<div class="span12">
+    <div class="span9">
+    <div class="widget-box" >
+    <div class="widget-content padding">
+    <div class="span12">
+
+        <form method="post">
+            {% csrf_token %}{{ form_find_ip }}
+        <input type="submit" value="find ip">
+        </form>
+
+    <div class="control-group">
+    <div class="controls">
+    <div class="input-prepend">
+    <div class="form-actions">
+    </div>
+
+    </div>
+    </br></br></br></br></br>
 
 
+    </div>
+    </form>
+    </div>
+    <div style="clear: both;"></div>
+    </div>
+    </div>
+    <div class="widget-box">
+    <div class="widget-title">
 
-<form id="searchform" class="form-vertical" action="" method="POST">
-{% csrf_token %}
-      <input type="hidden" name="action" value="search">
-<div class="control-group">
-<div class="controls">
-<div class="input-prepend">
-<span class="add-on"><i class="fa fa-user"></i></span><input type="text" name="ip" placeholder="ip" value="{{ ip_victim }}">
-
-<div class="form-actions">
-<span class="pull-right" style="margin-top: -20px;"><input type="submit" class="btn btn-inverse" value="searchip" ></span>
-
-</div>
-</form>
-</div>
-</br></br></br></br></br>
-
-
-</div>
-</form>
-</div>
-<div style="clear: both;"></div>
-</div>
-</div>
-<div class="widget-box">
-<div class="widget-title">
-
-</div>
-<div class="widget-content padding noborder">
-<div class="span12">
-
-
-
-
-<p>Server {{ ip_victim }} is <font color="green"><b>online</b></font><span class="label label-warning pull-right"></span></p>
-  {{ text_vpc }}  {{ text_npc|safe }}
-
-{{ msgerro }}
-
+    </div>
+    <div class="widget-content padding noborder">
+    <div class="span12">
+<FONT FACE=Courier COLOR="#AA0000">{{ msgerro }}</FONT>
 
 {% block bloco_ip_valido %}
   {% endblock %}
-
-
 {% endblock %}
-
-
