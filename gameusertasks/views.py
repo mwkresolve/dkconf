@@ -98,11 +98,15 @@ def CompleteTask(request):
                     softrun = infos['softrun']
                     Software.objects.filter(id=softrun).update(isactive=True)
                     Processes.objects.filter(userid=request.user, id=get_id).update(completed=True)
+                    if infos['ismyserver']:
+                        return HttpResponseRedirect("/software/")
                     return HttpResponseRedirect("/internet/")
                 if infos['action'] == 7:  # stop soft
                     softstop = infos['softstop']
                     Software.objects.filter(id=softstop).update(isactive=False)
                     Processes.objects.filter(userid=request.user, id=get_id).update(completed=True)
+                    if infos['ismyserver']:
+                        return HttpResponseRedirect("/software/")
                     return HttpResponseRedirect("/internet/")
 
 

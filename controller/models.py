@@ -1,10 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from my_tools.functions import pwd_generator, ip_generator
+from my_tools.functions import ip_generator
 from django.utils import timezone
-
-
-
 
 
 class User(AbstractUser):
@@ -12,16 +9,16 @@ class User(AbstractUser):
     gamepass = models.CharField(max_length=10, default='')
     gameip = models.CharField(max_length=20, default=ip_generator(), unique=True)
     premium = models.BooleanField(default=False)
-    stats_game = models.BooleanField(default=False) # true if table depends created
+    stats_game = models.BooleanField(default=False)  # true if table depends created
     net = models.IntegerField(default=1)
     money = models.IntegerField(default=10000)
     isnpc = models.BooleanField(default=False)
-    ipconnected = models.CharField(max_length=20,  default='off')
+    ipconnected = models.CharField(max_length=20, default='off')
     log = models.TextField(default=f'operating system created at {timezone.now()}')
     istrail = models.BooleanField(default=False)
+
     def __str__(self):
         return self.username
-
 
     def get_tasks(self):
         return Processes.objects.filter(userid=self.id, completed=False).values()
@@ -44,6 +41,7 @@ class enigma_solved(models.Model):
     enigma_ip = models.CharField(max_length=30000, default='')
     solved = models.BooleanField(default=False)
 
+
 class LastIp(models.Model):
     user = models.OneToOneField(
         User,
@@ -51,11 +49,9 @@ class LastIp(models.Model):
         primary_key=True,
     )
     ip = models.CharField(max_length=20, default='0.0.0.0')
-    
+
     def __str__(self):
         return self.ip
-
-
 
 
 class UserStats(models.Model):
@@ -88,6 +84,7 @@ class UserStats(models.Model):
     def __str__(self):
         return str(self.user)
 
+
 class Hardware(models.Model):
     serverid = models.AutoField(primary_key=True)
     userid = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -100,8 +97,6 @@ class Hardware(models.Model):
         return f'serverid = {self.serverid}, userid = {self.userid}'
 
 
-
-
 class CacheUser(models.Model):
     userid = models.OneToOneField(
         User,
@@ -109,9 +104,9 @@ class CacheUser(models.Model):
         primary_key=True,
     )
     reputation = models.PositiveIntegerField(default=0)
+
     def __str__(self):
         return f'log = {self.reputation}, userid = {self.userid}'
-
 
 
 class HistUsersCurrent(models.Model):
@@ -123,7 +118,7 @@ class HistUsersCurrent(models.Model):
     reputation = models.BigIntegerField(default=0)
     age = models.IntegerField(default=0)
     clanid = models.IntegerField(default=0)  # Field name made lowercase.
-    clanname = models.CharField( max_length=50, default='ok')  # Field name made lowercase.
+    clanname = models.CharField(max_length=50, default='ok')  # Field name made lowercase.
     timeplaying = models.FloatField(default=0)  # Field name made lowercase.
     missioncount = models.IntegerField(default=0)  # Field name made lowercase.
     hackcount = models.IntegerField(default=0)  # Field name made lowercase.
@@ -148,6 +143,7 @@ class TypeSofts(models.Model):
     def __str__(self):
         return self.type
 
+
 class Software(models.Model):
     userid = models.ForeignKey(User, on_delete=models.CASCADE)
     softname = models.CharField(max_length=25)
@@ -158,10 +154,11 @@ class Software(models.Model):
     softhidden = models.BooleanField(default=0)  # Field name made lowercase.
     softhiddenwith = models.BigIntegerField(default=0)  # Field name made lowercase.
     isactive = models.BooleanField(default=False)
+
+
 class HackedDatabase(models.Model):
     userid = models.ForeignKey(User, on_delete=models.CASCADE)
     iphacked = models.CharField(max_length=20)
-
 
 
 class Processes(models.Model):
@@ -172,7 +169,6 @@ class Processes(models.Model):
     timeend = models.DateTimeField()
     logedit = models.TextField(default='')
     iptryhack = models.CharField(max_length=20, default='')
-    completed = models.BooleanField(default=False)
     softdownload = models.IntegerField(default=0)
     softupload = models.IntegerField(default=0)
     softdel = models.IntegerField(default=0)
@@ -180,3 +176,5 @@ class Processes(models.Model):
     softstop = models.IntegerField(default=0)
     uploadip = models.CharField(max_length=20, default='')
     delmysoft = models.BooleanField(default=False)
+    completed = models.BooleanField(default=False)
+    ismyserver = models.BooleanField(default=False)
