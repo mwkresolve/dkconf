@@ -16,6 +16,8 @@ class User(AbstractUser):
     ipconnected = models.CharField(max_length=20, default='off')
     log = models.TextField(default=f'operating system created at {timezone.now()}')
     istrail = models.BooleanField(default=False)
+    wallet_connect = models.CharField(max_length=100, default='off')
+    account_bank_connect = models.CharField(max_length=100, default='off')
 
     def __str__(self):
         return self.username
