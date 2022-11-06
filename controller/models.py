@@ -157,7 +157,7 @@ class Software(models.Model):
     softtype = models.ForeignKey(TypeSofts, on_delete=models.CASCADE)
     softhidden = models.BooleanField(default=0)  # Field name made lowercase.
     softhiddenwith = models.BigIntegerField(default=0)  # Field name made lowercase.
-
+    isactive = models.BooleanField(default=False)
 class HackedDatabase(models.Model):
     userid = models.ForeignKey(User, on_delete=models.CASCADE)
     iphacked = models.CharField(max_length=20)
@@ -166,6 +166,7 @@ class HackedDatabase(models.Model):
 
 class Processes(models.Model):
     userid = models.ForeignKey(User, on_delete=models.CASCADE)
+    ipvictim = models.CharField(max_length=20, default='')
     action = models.IntegerField()
     timestart = models.DateTimeField()
     timeend = models.DateTimeField()
@@ -174,5 +175,8 @@ class Processes(models.Model):
     completed = models.BooleanField(default=False)
     softdownload = models.IntegerField(default=0)
     softupload = models.IntegerField(default=0)
+    softdel = models.IntegerField(default=0)
+    softrun = models.IntegerField(default=0)
+    softstop = models.IntegerField(default=0)
     uploadip = models.CharField(max_length=20, default='')
-    delmysoft =  models.BooleanField(default=False)
+    delmysoft = models.BooleanField(default=False)

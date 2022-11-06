@@ -229,6 +229,26 @@
 
 
 
+                                    {% if soft.isactive == True %}
+                                        <form method="post" name="stopsoft" >
+                                        <input type="submit" value="stopsoft" name='{{ soft.id }}'>
+                                        {% csrf_token %}
+                                        </form>
+                                    {% else %}
+
+
+
+
+                                        <form method="post" name="runsoft" >
+                                        <input type="submit" value="runsoft" name='{{ soft.id }}'>
+                                        {% csrf_token %}
+                                        </form>
+                                    {% endif %}
+
+
+
+
+
                                 	<form method="post" name="downloadsoft" >
                                     <input type="submit" value="download" name='{{ soft.id }}'>
                                     {% csrf_token %}

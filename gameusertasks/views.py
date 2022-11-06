@@ -94,7 +94,17 @@ def CompleteTask(request):
                     update_reputation(request.user, 50)
                     Processes.objects.filter(userid=request.user, id=get_id).update(completed=True)
                     return HttpResponseRedirect("/internet/")
-                    # print(softupload)
+                if infos['action'] == 6:  # run soft
+                    softrun = infos['softrun']
+                    Software.objects.filter(id=softrun).update(isactive=True)
+                    Processes.objects.filter(userid=request.user, id=get_id).update(completed=True)
+                    return HttpResponseRedirect("/internet/")
+                if infos['action'] == 7:  # stop soft
+                    softstop = infos['softstop']
+                    Software.objects.filter(id=softstop).update(isactive=False)
+                    Processes.objects.filter(userid=request.user, id=get_id).update(completed=True)
+                    return HttpResponseRedirect("/internet/")
+
 
 
     else:

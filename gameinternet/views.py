@@ -42,7 +42,7 @@ class ConnectIpView(CreateView):
         info_user = User.objects.filter(username=request.user).values()
         ip_connect = info_user[0]['ipconnected']
         for info in request.POST:
-            print(info)
+            print(request.POST)
             soft_id = info
             if 'Resolver' in request.POST[info]:
                 return HttpResponseRedirect(f"/netip={ip_connect}isconnected=ok=enigma")
@@ -65,7 +65,7 @@ class ConnectIpView(CreateView):
             if 'delete' in request.POST[info]:
                 chk_exists = len(Processes.objects.filter(userid=request.user,
                                                           action=4,
-                                                          softdownload=soft_id, completed=False).values()) >= 1
+                                                          softdel=soft_id, completed=False).values()) >= 1
 
                 if chk_exists:
                     return HttpResponse("ja existe")
@@ -74,9 +74,34 @@ class ConnectIpView(CreateView):
                 Processes.objects.create(userid=request.user,
                                          action=4,
                                          timestart=datetime.now(),
-                                         timeend=endtime, softdownload=soft_id)
+                                         timeend=endtime, softdel=soft_id)
                 return HttpResponseRedirect("/task/")
+            if 'runsoft' in request.POST[info]:
+                chk_exists = len(Processes.objects.filter(userid=request.user,
+                                                          action=6,
+                                                          softrun=soft_id, completed=False).values()) >= 1
 
+                if chk_exists:
+                    return HttpResponse("ja existe")
+                endtime = datetime.now() + timedelta(seconds=10)
+                Processes.objects.create(userid=request.user,
+                                         action=6,
+                                         timestart=datetime.now(),
+                                         timeend=endtime, softrun=soft_id, ipvictim=ip_connect)
+                return HttpResponseRedirect("/task/")
+            if 'stopsoft' in request.POST[info]:
+                chk_exists = len(Processes.objects.filter(userid=request.user,
+                                                          action=7,
+                                                          softstop=soft_id, completed=False).values()) >= 1
+
+                if chk_exists:
+                    return HttpResponse("ja existe")
+                endtime = datetime.now() + timedelta(seconds=10)
+                Processes.objects.create(userid=request.user,
+                                         action=7,
+                                         timestart=datetime.now(),
+                                         timeend=endtime, softstop=soft_id, ipvictim=ip_connect)
+                return HttpResponseRedirect("/task/")
 
 
 
@@ -128,7 +153,7 @@ class NetView(CreateView):
         # verificando se o ip existe no jogo
         if ip_victim not in GenerateIpUrl():
             msgerro = f'O IP {ip_victim} não existe'
-            return render(request, self.template_name, {'msgerro': msgerro,  'form_find_ip': form_find_ip})
+            return render(request, self.template_name, {'msgerro': msgerro,  'form_find_ip': form_find_ip, 'form_login_victim':form_login_victim})
         # se existir joga pra tela de login
         else:
             # !!!!!!!!!!! criar funcao para mostrar o texto dos servidores bots
@@ -145,6 +170,8 @@ class NetView(CreateView):
                           {'form_find_ip': form_find_ip, 'form_login_victim': form_login_victim, 'ishacked': ishacked})
 
     def post(self, request, *args):
+
+        form_get_pw = VictimIp()
         form_login_victim = VictimIp(initial={"login": "root"})
         ip_victim = re.findall(self.regex_ip, request.get_full_path())[0]
         if ip_victim == User.objects.filter(username=request.user).values('gameip')[0]['gameip']:
@@ -155,7 +182,8 @@ class NetView(CreateView):
                 is_ip = re.findall(self.regex_ip, request.POST['ip'])
                 if not is_ip:
                     msgerro = f'Isso {request.POST["ip"]} não é um endereço de ip valido'
-                    return render(request, 'internetip.html', {'msgerro': msgerro, 'form_find_ip': form_find_ip})
+                    return render(request, self.template_name, {'msgerro': msgerro,
+                                                               'form_find_ip': form_find_ip, 'form_get_pw':form_get_pw})
                 return HttpResponseRedirect(f"/netip={request.POST['ip']}")
             else:
                 return HttpResponseRedirect(f"/errrrrrrrrrrrrrrro")
