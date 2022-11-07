@@ -62,11 +62,10 @@ class FinancesView(TemplateView, ActionFinancesBtc):
         if 'transf_to_wallet' in request.POST:
             form_transf = TransferBtc(request.POST)
             if form_transf.is_valid():
+                wallet_connect = self.get_is_conn_btc()
                 transf_to = request.POST['transf_to_wallet']
                 value_transf = float(request.POST['value'])
-                saldo_wallet = float(self.get_info_btc_user()['balance'])
-                wallet_connect = self.get_is_conn_btc()
-
+                saldo_wallet = float(WalletBitcoin.objects.filter(account=wallet_connect).values('balance')[0]['balance'])
                 exists = WalletBitcoin.objects.filter(account=transf_to).values()
                 info_wallet = WalletBitcoin.objects.filter(account=self.get_is_conn_btc()).values()
                 # se nao existir a carteira retorna erro
@@ -88,6 +87,7 @@ class FinancesView(TemplateView, ActionFinancesBtc):
                                                                 'wallet_is_con': self.get_is_conn_btc(),
                                                                 'form_transfer_btc': self.form_transfer_btc})
                 if value_transf > saldo_wallet:
+
                     msg_erro = f'você não possui saldo para transferir {value_transf} bitcoins'
 
                     return render(request, self.template_name, {'msg_erro': msg_erro,
@@ -105,7 +105,6 @@ class FinancesView(TemplateView, ActionFinancesBtc):
                                                             'bank_wallet': bank_wallet,
                                                             'wallet_is_con': self.get_is_conn_btc(),
                                                             'form_transfer_btc': self.form_transfer_btc})
-
         if 'wallet' in request.POST:
             form_login_btc = LoginBtc(request.POST)
             if form_login_btc.is_valid():
