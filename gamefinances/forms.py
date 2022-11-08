@@ -9,3 +9,4 @@ class LoginBtc(forms.Form):
 class TransferBtc(forms.Form):
     transf_to_wallet = forms.CharField(label='transfer to', max_length=70)
     value = forms.FloatField()
+

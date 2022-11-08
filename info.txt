@@ -1,0 +1,51 @@
+
+
+
+Por meio deste arquivo vou tentar explicar o inexplicavel
+
+
+
+ o app controller deve concentrar apenas as funções de estrutura do jogo pre start,
+ criação dos bots, criação dos enigmas...
+
+
+
+ o app gamefinances deve concentrar apenas as funções de banco,
+ como transferencias, venda e compra de bitcoin tudo que envolva dinheiro e autenticacao nas contas
+
+
+ o app gamehackeddb deve concentrar as funções sobre os ips hackeados, tais como
+ deletar o ip do banco de dados, verificar informações dos ips sobre hdd internet etc...
+
+
+
+ o app gamehardware deve concentrar as funcoes sobre upgrade de servidor, tais como
+ upgrade de processador, upgrade de hd, upgrade de ram, upgrade na velocidade da internet..
+
+
+
+ o app gameinternet deve concentrar as funçoes de validação de ip da vitima, funcoes de
+ hackear, acesso ao servidor da vitima, ainda não decidi se vou criar um app apenas para
+ a lógica de instalação de virus informações do dinheiro gerado etc...
+
+
+
+ o app gamelogfile deve concentrar apenas a função de editar log,
+ acredito que ja esteja finalizado
+
+
+
+ o app gameranking deve concertrar as funçoes de rank, como os melhores jogadors, os softwares mais altos
+ os ddos mais fortes etc...
+
+
+
+ o app gameusertasks é o app MAIS IMPORTANTE do jogo, nele que vamos executar todas as tarefas de
+ hackear conta, editar log, rodar e pausar os softwares e por ai vai..
+
+
+
+ my_tools não é um app registrado, por hora concentra as funçoes para gerar senhas etc... ao final do projeto
+ essa pasta deve ser descontinuada.
+
+

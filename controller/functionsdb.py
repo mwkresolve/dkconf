@@ -1,6 +1,5 @@
 from .models import *
 from gamefinances.models import *
-import json
 from my_tools.functions import *
 import names
 import random
@@ -15,6 +14,12 @@ def connect_ip_victim(user, ip):
 
 
 def create_user_game(user):
+    """
+    por enquanto isto está sendo usado quando o usuario loga pela primeira vez no jogo
+    para popular as infos necessarias para jogar, quando for pra produção isso deve ser
+    movido para quando o jogador confirmar a conta no e-mail ja criar as stats
+
+    """
     User.objects.filter(username=user).update(gameip=ip_generator(), gamepass=pwd_generator())
     Hardware.objects.create(userid=user)
     HistUsersCurrent.objects.create(userid=user)
@@ -23,7 +28,7 @@ def create_user_game(user):
     WalletBitcoin.objects.create(userid=user,
                                  account=generate_account(),
                                  password=generate_pw(),
-                                 balance=1, )
+                                 balance=1.0007000, )
     WalletBank.objects.create(userid=user,
                               account=generate_num_account(),
                               password=pwd_generator(),
@@ -32,7 +37,6 @@ def create_user_game(user):
 
 def npc_basic_config():
     for c in range(100):
-        gameip = ip_generator()
         name = f'{names.get_last_name()}_{names.get_first_name()}'
         user_1 = User.objects.create_user(f'{name}', f'{name}@chase.com', 'chevyspgererassword', isnpc=1)
         create_user_game(user_1)
@@ -99,6 +103,7 @@ def create_hardware_npc():
 
 
 def reset_softs_npc():
+    # need this run every 30 minutes in cron job
     npc_data = open('my_tools/info_bots.json').read()
     npcList = json.loads(npc_data)
     for bot in npcList:

@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from .models import *
 from .forms import *
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import TemplateView
 
 
 class ActionFinancesBtc:
@@ -37,7 +37,6 @@ class FinancesView(TemplateView, ActionFinancesBtc):
 
     def get(self, request, *args):
         bank_wallet = WalletBank.objects.filter(userid=request.user).values()[0]
-        # form_transfer_btc = TransferBtc()
         form_login_btc = LoginBtc(initial={"wallet": self.get_info_btc_user()['account'],
                                            "password": self.get_info_btc_user()['password']})
         if 'off' in self.get_is_conn_btc():
@@ -122,7 +121,6 @@ class FinancesView(TemplateView, ActionFinancesBtc):
                     })
                 else:
                     if password == exists[0]['password']:
-                        saldo = exists[0]['balance']
                         User.objects.filter(username=request.user).update(wallet_connect=wallet)
                         return HttpResponseRedirect("/finances/")
                     else:

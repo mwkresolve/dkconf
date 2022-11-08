@@ -1,15 +1,14 @@
 import re
-from datetime import timedelta, date, datetime
+from datetime import timedelta, datetime
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, HttpResponse
-from django.views.generic import TemplateView , CreateView
-from controller.models import User, Processes, Software, TypeSofts, HackedDatabase, LastIp
+from django.views.generic import TemplateView
 from controller.functionsdb import *
 from django.contrib.auth.decorators import login_required
 from .forms import *
 
 
-def GenerateIpUrl():
+def generate_ip_url():
     get_ips = User.objects.values('gameip')
     all_ips_game = list()
     for ip in get_ips.iterator():
@@ -28,7 +27,7 @@ def disconnectuser(request):
         return HttpResponseRedirect("/netip=0.0.0.0")
 
 
-class ConnectIpView(CreateView):
+class ConnectIpView(TemplateView):
     template_name = "internet_connect_ip_ok.html.html"
 
     def get(self, request, *args):
@@ -37,12 +36,13 @@ class ConnectIpView(CreateView):
         victim = User.objects.filter(gameip=ip_connect).values('log', 'username', 'id')
         softs_victim = Software.objects.filter(userid=victim[0]['id']).values()
         return render(request, "internet_connect_ip_ok.html", {'softs_victim': softs_victim})
-    def post(self, request, *args):
+
+    @staticmethod
+    def post(request):
 
         info_user = User.objects.filter(username=request.user).values()
         ip_connect = info_user[0]['ipconnected']
         for info in request.POST:
-            print(request.POST)
             soft_id = info
             if 'Resolver' in request.POST[info]:
                 return HttpResponseRedirect(f"/netip={ip_connect}isconnected=ok=enigma")
@@ -51,7 +51,7 @@ class ConnectIpView(CreateView):
                 return HttpResponseRedirect(f"/netip={ip_connect}")
             if 'download' in request.POST[info]:
                 chk_exists = len(Processes.objects.filter(userid=request.user,
-                                                         action=3,
+                                                          action=3,
                                                           softdownload=soft_id, completed=False).values()) >= 1
 
                 if chk_exists:
@@ -104,18 +104,13 @@ class ConnectIpView(CreateView):
                 return HttpResponseRedirect("/task/")
 
 
-
-
-
-
-
-@login_required
 def hackip(request, msgbroke, ip_victim):
     info_victim = User.objects.filter(gameip=ip_victim).values('isnpc', 'username', 'gamepass')
 
     for info in info_victim:
         if info['isnpc']:
-            text_npc = f'Olá invasor, meu nome é {info["username"]}.</br> quem sabe eu possa te ajudar se você me responder uma pergunta ' \
+            text_npc = f'Olá invasor, meu nome é {info["username"]}' \
+                       f'.</br> quem sabe eu possa te ajudar se você me responder uma pergunta ' \
                        f'\nMas espera ai, sera que você consegue me invadir?'
             """
             return render(request, "internethack.html", {'ip_victim': ip_victim,
@@ -132,12 +127,12 @@ def hackip(request, msgbroke, ip_victim):
             return HttpResponseRedirect(f"/netip={ip_victim}", {'ip_victim': ip_victim, 'msgbroke': msgbroke})
 
 
-
-class NetView(CreateView):
+class NetView(TemplateView):
     template_name = "internetip.html"
     regex_ip = '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+'
     form_find_ip = FindIp()
     form_get_pw = VictimIp()
+
     def get(self, request, *args):
         info_user = User.objects.filter(username=request.user).values()
         ip_victim = re.findall(self.regex_ip, request.get_full_path())[0]
@@ -151,9 +146,10 @@ class NetView(CreateView):
         if ip_connect != 'off':
             return HttpResponseRedirect(f"/netip={ip_connect}isconnected=ok")
         # verificando se o ip existe no jogo
-        if ip_victim not in GenerateIpUrl():
+        if ip_victim not in generate_ip_url():
             msgerro = f'O IP {ip_victim} não existe'
-            return render(request, self.template_name, {'msgerro': msgerro,  'form_find_ip': form_find_ip, 'form_login_victim':form_login_victim})
+            return render(request, self.template_name,
+                          {'msgerro': msgerro, 'form_find_ip': form_find_ip, 'form_login_victim': form_login_victim})
         # se existir joga pra tela de login
         else:
             # !!!!!!!!!!! criar funcao para mostrar o texto dos servidores bots
@@ -183,7 +179,8 @@ class NetView(CreateView):
                 if not is_ip:
                     msgerro = f'Isso {request.POST["ip"]} não é um endereço de ip valido'
                     return render(request, self.template_name, {'msgerro': msgerro,
-                                                               'form_find_ip': form_find_ip, 'form_get_pw':form_get_pw})
+                                                                'form_find_ip': form_find_ip,
+                                                                'form_get_pw': form_get_pw})
                 return HttpResponseRedirect(f"/netip={request.POST['ip']}")
             else:
                 return HttpResponseRedirect(f"/errrrrrrrrrrrrrrro")
@@ -202,7 +199,7 @@ class NetView(CreateView):
                 msgbroke = 'senha incorreta'
                 form_find_ip = FindIp(initial={"ip": ip_victim})
                 ishacked = len(HackedDatabase.objects.filter(userid=request.user, iphacked=ip_victim).values()) >= 1
-                if ishacked: # if not  glitch pra descobrir senha do servidor
+                if ishacked:  # if not  glitch pra descobrir senha do servidor
                     form_login_victim = VictimIp(initial={"login": "root", "pw": pw_victim})
                 return render(request, 'internethack.html', {'msgbroke': msgbroke,
                                                              'form_find_ip': form_find_ip,
@@ -224,7 +221,8 @@ class NetView(CreateView):
                                                              'form_login_victim': form_login_victim})
 
             else:
-                chk_exists = len(Processes.objects.filter(action=2, userid=request.user, iptryhack=ip_victim, completed=False).values()) >= 1
+                chk_exists = len(Processes.objects.filter(action=2, userid=request.user, iptryhack=ip_victim,
+                                                          completed=False).values()) >= 1
                 # nao criar tarefa identica
                 if chk_exists:
                     msgbroke = 'já existe uma tarefa igual em execução'
