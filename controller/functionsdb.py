@@ -36,6 +36,11 @@ def create_user_game(user):
 
 
 def npc_basic_config():
+    """ existem os servidores de enigma
+        esses serão servidores mais simples e mais fracos
+        so pra fazer volume msm
+        por hora ta simulando outros players
+     """
     for c in range(100):
         name = f'{names.get_last_name()}_{names.get_first_name()}'
         user_1 = User.objects.create_user(f'{name}', f'{name}@chase.com', 'chevyspgererassword', isnpc=1)

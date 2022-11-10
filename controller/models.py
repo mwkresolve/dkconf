@@ -69,6 +69,18 @@ class Hardware(models.Model):
         return f'serverid = {self.serverid}, userid = {self.userid}'
 
 
+class HistUsersCurrent(models.Model):
+    userid = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
+    reputation = models.BigIntegerField(default=0)
+
+    def __str__(self):
+        return f' userid = {self.userid}, reputation = {self.reputation}'
+
+
 class TypeSofts(models.Model):
     type = models.CharField(max_length=25, unique=True)
 
