@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
-from controller.models import User, Hardware, TypeSofts, Software, UserStats, HistUsersCurrent
+from controller.models import User, Hardware, TypeSofts, Software
 from my_tools.functions import *
 from .functionsdb import *
 import json

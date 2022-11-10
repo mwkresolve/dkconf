@@ -56,36 +56,6 @@ class LastIp(models.Model):
         return self.ip
 
 
-class UserStats(models.Model):
-    user = models.OneToOneField(
-        User,
-        on_delete=models.CASCADE,
-        primary_key=True,
-    )
-    datejoined = models.DateTimeField(db_column='dateJoined', default=timezone.now)  # Field name made lowercase.
-    exp = models.IntegerField(default=0)
-    certifications = models.CharField(max_length=30, default='ok')
-    awards = models.CharField(max_length=50, default=0)
-    timeplaying = models.FloatField(db_column='timePlaying', default=0)  # Field name made lowercase.
-    missioncount = models.IntegerField(db_column='missionCount', default=0)  # Field name made lowercase.
-    hackcount = models.IntegerField(db_column='hackCount', default=0)  # Field name made lowercase.
-    ddoscount = models.IntegerField(db_column='ddosCount', default=0)  # Field name made lowercase.
-    warezsent = models.FloatField(db_column='warezSent', default=0)  # Field name made lowercase.
-    spamsent = models.BigIntegerField(db_column='spamSent', default=0)  # Field name made lowercase.
-    bitcoinsent = models.FloatField(db_column='bitcoinSent', default=0)  # Field name made lowercase.
-    ipresets = models.IntegerField(db_column='ipResets', default=0)  # Field name made lowercase.
-    lastipreset = models.DateTimeField(db_column='lastIpReset', default=timezone.now)  # Field name made lowercase.
-    pwdresets = models.IntegerField(db_column='pwdResets', default=0)  # Field name made lowercase.
-    lastpwdreset = models.DateTimeField(db_column='lastPwdReset', default=timezone.now)  # Field name made lowercase.
-    moneyearned = models.BigIntegerField(db_column='moneyEarned', default=0)  # Field name made lowercase.
-    moneytransfered = models.BigIntegerField(db_column='moneyTransfered', default=0)  # Field name made lowercase.
-    moneyhardware = models.BigIntegerField(db_column='moneyHardware', default=0)  # Field name made lowercase.
-    moneyresearch = models.BigIntegerField(db_column='moneyResearch', default=0)  # Field name made lowercase.
-    profileviews = models.IntegerField(db_column='profileViews', default=0)  # Field name made lowercase.
-
-    def __str__(self):
-        return str(self.user)
-
 
 class Hardware(models.Model):
     serverid = models.AutoField(primary_key=True)
@@ -97,46 +67,6 @@ class Hardware(models.Model):
 
     def __str__(self):
         return f'serverid = {self.serverid}, userid = {self.userid}'
-
-
-class CacheUser(models.Model):
-    userid = models.OneToOneField(
-        User,
-        on_delete=models.CASCADE,
-        primary_key=True,
-    )
-    reputation = models.PositiveIntegerField(default=0)
-
-    def __str__(self):
-        return f'log = {self.reputation}, userid = {self.userid}'
-
-
-class HistUsersCurrent(models.Model):
-    userid = models.OneToOneField(
-        User,
-        on_delete=models.CASCADE,
-        primary_key=True,
-    )
-    reputation = models.BigIntegerField(default=0)
-    age = models.IntegerField(default=0)
-    clanid = models.IntegerField(default=0)  # Field name made lowercase.
-    clanname = models.CharField(max_length=50, default='ok')  # Field name made lowercase.
-    timeplaying = models.FloatField(default=0)  # Field name made lowercase.
-    missioncount = models.IntegerField(default=0)  # Field name made lowercase.
-    hackcount = models.IntegerField(default=0)  # Field name made lowercase.
-    ddoscount = models.IntegerField(default=0)  # Field name made lowercase.
-    ipresets = models.IntegerField(default=0)  # Field name made lowercase.
-    moneyearned = models.BigIntegerField(default=0)  # Field name made lowercase.
-    moneytransfered = models.BigIntegerField(default=0)  # Field name made lowercase.
-    moneyhardware = models.BigIntegerField(default=0)  # Field name made lowercase.
-    moneyresearch = models.BigIntegerField(default=0)  # Field name made lowercase.
-    warezsent = models.PositiveIntegerField(default=0)  # Field name made lowercase.
-    spamsent = models.PositiveIntegerField(default=0)  # Field name made lowercase.
-    bitcoinsent = models.FloatField(default=0)  # Field name made lowercase.
-    profileviews = models.PositiveIntegerField(default=0)  # Field name made lowercase.
-
-    def __str__(self):
-        return f' userid = {self.userid}, reputation = {self.reputation}'
 
 
 class TypeSofts(models.Model):

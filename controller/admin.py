@@ -40,9 +40,7 @@ class SoftwareAdmin(admin.ModelAdmin):
 
 
 
-admin.site.register(UserStats)
-admin.site.register(CacheUser)
-admin.site.register(HistUsersCurrent)
+
 
 from django.contrib import admin
 
