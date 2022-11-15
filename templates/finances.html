@@ -83,7 +83,7 @@
 
 
 
-                  </p><FONT FACE=Courier COLOR="#AA0000">{{ msg_erro }}</FONT></br>
+                  </p><FONT FACE=Courier COLOR="#AA0000">{{ msg_erro_btc }}</FONT></br>
                     {% if not 'off' in wallet_is_con  %}
                     wallet: {{ info_wallet.account }}
                         </br>
@@ -125,17 +125,45 @@
                   <img src="https://st.depositphotos.com/1474768/1623/i/450/depositphotos_16232671-stock-photo-the-glass-wall-with-the.jpg">
                 <div class="card-body">
                   <p class="card-text">
-                        </br> conta : {{ bank_wallet.account }}</br>
-                        saldo : USD: {{ bank_wallet.balance }}
+
+
+
+
+                  </p><FONT FACE=Courier COLOR="#AA0000">{{ msg_erro_bank }}</FONT></br>
+                    {% if not 'off' in wallet_is_con_bank  %}
+                    wallet: {{ bank_wallet.account }}
                         </br>
+                      saldo: {{ bank_wallet.balance }}
+
+                    <form method="post">
+                                        {% csrf_token %}{{ form_transfer_bank }}
+
+                                    <input type="submit" value="transfer">
+                                    </form>
+                    </br></br></br></br>
+                                    	<form method="post" name="logout_bank" >
+                                        <input type="submit" value="logout" name='logout_bank'>
+                                        {% csrf_token %}
+                                        </form>
+                    {% else %}
+                                 <form method="post">
+                                                    {% csrf_token %}{{ form_login_bank }}
+
+                                                <input type="submit" value="login bank">
+                                                </form>
+
+                      {% endif %}
+
+
+
+
 
 
                   </p>
 
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">login</button>
-                    </div>
+                       </div>
 
                   </div>
                 </div>

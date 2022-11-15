@@ -28,11 +28,11 @@ def create_user_game(user):
     WalletBitcoin.objects.create(userid=user,
                                  account=generate_account(),
                                  password=generate_pw(),
-                                 balance=1.0007000, )
+                                 )
     WalletBank.objects.create(userid=user,
                               account=generate_num_account(),
                               password=pwd_generator(),
-                              balance=10000, )
+                              )
 
 
 def npc_basic_config():

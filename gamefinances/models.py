@@ -10,7 +10,7 @@ class WalletBitcoin(models.Model):
     )
     account = models.CharField(max_length=20)
     password = models.CharField(max_length=50)
-    balance = models.DecimalField(decimal_places=7, max_digits=11)
+    balance = models.FloatField(default=1.0)
 
 
 class WalletBank(models.Model):
@@ -21,5 +21,5 @@ class WalletBank(models.Model):
     )
     account = models.CharField(max_length=20)
     password = models.CharField(max_length=50)
-    balance = models.FloatField()
+    balance = models.FloatField(default=10000)
 
