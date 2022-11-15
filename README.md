@@ -8,7 +8,7 @@ Projeto de um jogo onde o jogador será um hacker, tera que fazer missoes, insta
 ## Como utilizar
 * Clona repositório
   ```bash
-  $ git clone https://github.com/mwkresolve/darkconflicts.git
+  $ git clone https://github.com/mwkresolve/dkconf.git
   $ cd darkconflicts
   ```
 * Preparando o ambiente virtual
