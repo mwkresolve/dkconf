@@ -61,9 +61,9 @@ class Hardware(models.Model):
     serverid = models.AutoField(primary_key=True)
     userid = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=15, default='SERVER')
-    cpu = models.FloatField(default=500)
-    hdd = models.FloatField(default=100)
-    ram = models.FloatField(default=256)
+    cpu = models.IntegerField(default=500)
+    hdd = models.IntegerField(default=1000)
+    ram = models.IntegerField(default=256)
 
     def __str__(self):
         return f'serverid = {self.serverid}, userid = {self.userid}'

@@ -94,7 +94,7 @@ class FinancesView(TemplateView, ActionFinancesBtc):
 
 
         if 'logout_bank' in request.POST:
-            if 'off' in self.get_is_conn_btc():
+            if 'off' in self.get_is_conn_bank():
                 return HttpResponseRedirect("/tenta de novo hackzin/")
             User.objects.filter(username=request.user).update(account_bank_connect='off')
             return HttpResponseRedirect("/finances/")
@@ -110,7 +110,7 @@ class FinancesView(TemplateView, ActionFinancesBtc):
                 saldo_bank = float(
                     WalletBank.objects.filter(account=bank_connect).values('balance')[0]['balance'])
 
-                # se nao existir a carteira retorna erro
+
                 if len(exists) < 1:
                     self.msg_erro_bank = f'a carteira {transf_to} não existe'
                     return render(request, self.template_name, {'msg_erro_bank': self.msg_erro_bank,

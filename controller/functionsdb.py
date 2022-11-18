@@ -186,3 +186,5 @@ def connect_ip_victim(user, ip):
 def edit_my_log(user, logedit):
     User.objects.filter(username=user).update(log=logedit)
     update_reputation(user, 10)
+
+
