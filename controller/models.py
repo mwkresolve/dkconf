@@ -22,8 +22,6 @@ class User(AbstractUser):
     def __str__(self):
         return self.username
 
-    def get_tasks(self):
-        return Processes.objects.filter(userid=self.id, completed=False).values()
 
 
 class Enigma(models.Model):
@@ -56,12 +54,11 @@ class LastIp(models.Model):
         return self.ip
 
 
-
 class Hardware(models.Model):
     serverid = models.AutoField(primary_key=True)
     userid = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=15, default='SERVER')
-    cpu = models.IntegerField(default=500)
+    cpu = models.IntegerField(default=512)
     hdd = models.IntegerField(default=1000)
     ram = models.IntegerField(default=256)
 
