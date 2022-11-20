@@ -5,6 +5,7 @@ from .forms import *
 from django.views.generic import TemplateView
 
 
+
 class ActionFinancesBtc:
     def __int__(self, request):
         self.request = request
@@ -61,7 +62,6 @@ class FinancesView(TemplateView, ActionFinancesBtc):
         self.msg_erro_bank = ''
 
     def get(self, request, *args):
-
         if 'off' in self.get_is_conn_btc():
 
             self.form_login_btc = LoginBtc(initial={"wallet": self.get_info_btc_user()['account'],

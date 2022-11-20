@@ -108,7 +108,7 @@ class HardwareView(TemplateView, ActionsHardware):
 
 
         if 'upgraderam' in request.POST:
-            value_next_upgrade = ram * 2 / 4
+            value_next_upgrade = int(ram * 2 / 4)
             if balance < value_next_upgrade:
                 msg_erro_ram = 'SALDO INSUCIFIENTE'
 

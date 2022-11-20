@@ -58,6 +58,7 @@ INSTALLED_APPS = [
 
 AUTH_USER_MODEL = 'controller.User'
 MIDDLEWARE = [
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -166,7 +167,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 ACCOUNT_LOGOUT_ON_GET = True
 
-
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 
 

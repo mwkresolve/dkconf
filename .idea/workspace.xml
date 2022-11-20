@@ -4,10 +4,10 @@
     <list default="true" id="cae94dd9-5ed6-4cdf-9ee6-9b54e38c0e4e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/functionsdb.py" beforeDir="false" afterPath="$PROJECT_DIR$/controller/functionsdb.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/controller/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/darkconflicts/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/darkconflicts/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gamefinances/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/gamefinances/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gamefinances/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/gamefinances/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gamehardware/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/gamehardware/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/basehardware.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/basehardware.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

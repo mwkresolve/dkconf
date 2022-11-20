@@ -3,6 +3,7 @@ from gamefinances.models import *
 from my_tools.functions import *
 import names
 import random
+import math
 
 
 def disconnect_ip_victim(user):
@@ -186,5 +187,6 @@ def connect_ip_victim(user, ip):
 def edit_my_log(user, logedit):
     User.objects.filter(username=user).update(log=logedit)
     update_reputation(user, 10)
+
 
 
