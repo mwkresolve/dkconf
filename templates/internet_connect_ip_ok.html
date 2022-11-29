@@ -1,7 +1,4 @@
 {% extends 'base.html' %}
-
-
-
         <!-- Sidebar Start -->
         {% block menuleft %}
         <div class="sidebar pe-4 pb-3">
@@ -19,8 +16,6 @@
                         <span>ip: {{ user.gameip }}</span>
                     </div>
                 </div>  
-
-                       
 
 
                         
@@ -99,7 +94,7 @@
     <form method="post" name="logvictim" style="width: 100px; height: 100px; ">
     {% csrf_token %}
     <textarea id="logarea" name="logarea"
-          rows="5" cols="70"> {{ mylog }}
+          rows="5" cols="70"> {{ logvictim }}
 </textarea><br>
          <input type="submit" value="edit log " name='editlogvictim'>
     {% csrf_token %}

@@ -96,13 +96,20 @@ sem processos no momento!
 {% endif %}
 
 {% for task in tasks %}
+
     {% if not task.completed %}
         </br><hr />
         TASK
         </br>
             {% now "Y-m-d H:i:s" as nowdate %}
             action: {% if task.action == 1 %}
-             Edit local hosting</br>
+                        {% if task.ismyserver %}
+                            editing log on localhost</br>
+                        {% else %}
+                            editing log on hosting {{ task.ipvictim }}
+                        {% endif %}
+
+
             {% elif task.action == 2 %}
              Hacking ip {{ task.iptryhack }}</br>
              {% elif task.action == 3 %}

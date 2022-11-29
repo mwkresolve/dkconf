@@ -1,12 +1,13 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from my_tools.functions import ip_generator
+from my_tools.functions import ip_generator, pwd_generator
 from django.utils import timezone
+
 
 
 class User(AbstractUser):
     bio = models.TextField(blank=True)
-    gamepass = models.CharField(max_length=10, default='')
+    gamepass = models.CharField(max_length=10, default=pwd_generator())
     gameip = models.CharField(max_length=20, default=ip_generator(), unique=True)
     premium = models.BooleanField(default=False)
     stats_game = models.BooleanField(default=False)  # true if table depends created
@@ -22,6 +23,8 @@ class User(AbstractUser):
     def __str__(self):
         return self.username
 
+    def get_balance_account(self):
+        return WalletBank.objects.filter(userid=self.username).values()[0]
 
 
 class Enigma(models.Model):

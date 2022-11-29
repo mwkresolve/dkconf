@@ -172,7 +172,7 @@
 
                                     {% if soft.isactive == True %}
                                         <form method="post" name="stopsoft" >
-                                        <input type="submit" value="stopsoft" name='{{ soft.id }}'>
+                                        <input type="submit" value="stopsoft" name='{{ soft.id }}' />>
                                         {% csrf_token %}
                                         </form>
                                     {% else %}

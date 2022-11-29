@@ -4,7 +4,7 @@ from my_tools.functions import *
 import names
 import random
 import math
-
+from datetime import datetime
 
 def disconnect_ip_victim(user):
     User.objects.filter(username=user).update(ipconnected='off')
@@ -19,21 +19,24 @@ def create_user_game(user):
     por enquanto isto está sendo usado quando o usuario loga pela primeira vez no jogo
     para popular as infos necessarias para jogar, quando for pra produção isso deve ser
     movido para quando o jogador confirmar a conta no e-mail ja criar as stats
-
     """
-    User.objects.filter(username=user).update(gameip=ip_generator(), gamepass=pwd_generator())
-    Hardware.objects.create(userid=user)
-    HistUsersCurrent.objects.create(userid=user)
-    User.objects.update(stats_game=True)
-    LastIp.objects.create(user=user)
-    WalletBitcoin.objects.create(userid=user,
-                                 account=generate_account(),
-                                 password=generate_pw(),
-                                 )
-    WalletBank.objects.create(userid=user,
-                              account=generate_num_account(),
-                              password=pwd_generator(),
-                              )
+    try:
+
+        Hardware.objects.create(userid=user)
+        HistUsersCurrent.objects.create(userid=user)
+        User.objects.update(stats_game=True)
+        LastIp.objects.create(user=user)
+        WalletBitcoin.objects.create(userid=user,
+                                     account=generate_account(),
+                                     password=generate_pw(),
+                                     )
+        WalletBank.objects.create(userid=user,
+                                  account=generate_num_account(),
+                                  password=pwd_generator(),
+                                  )
+        return True
+    except:
+        return False
 
 
 def npc_basic_config():
@@ -188,5 +191,16 @@ def edit_my_log(user, logedit):
     User.objects.filter(username=user).update(log=logedit)
     update_reputation(user, 10)
 
+def edit_log_victim(gameip_victim, logedit):
+    User.objects.filter(gameip=gameip_victim).update(log=logedit)
 
 
+
+def edit_usr_and_victim(user, gameip_victim, logedit):
+    old_log_user = User.objects.filter(username=user).values('log')[0]['log']
+    old_log_victim = User.objects.filter(gameip=gameip_victim).values('log')[0]['log']
+    edit_my_log(user, old_log_user + f'\n{logedit} at {get_current_time()}')
+    edit_log_victim(gameip_victim, old_log_victim + f'\n{logedit} at {get_current_time()}')
+
+def get_current_time():
+    return datetime.now().strftime('%H:%M:%S')

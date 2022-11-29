@@ -35,7 +35,8 @@ class ConnectIpView(TemplateView):
         ip_connect = info_user[0]['ipconnected']
         victim = User.objects.filter(gameip=ip_connect).values('log', 'username', 'id')
         softs_victim = Software.objects.filter(userid=victim[0]['id']).values()
-        return render(request, "internet_connect_ip_ok.html", {'softs_victim': softs_victim})
+        logvictim = User.objects.filter(gameip=ip_connect).values('log')[0]['log']
+        return render(request, "internet_connect_ip_ok.html", {'softs_victim': softs_victim,'logvictim':logvictim})
 
     @staticmethod
     def post(request):
@@ -102,6 +103,15 @@ class ConnectIpView(TemplateView):
                                          timestart=datetime.now(),
                                          timeend=endtime, softstop=soft_id, ipvictim=ip_connect)
                 return HttpResponseRedirect("/task/")
+            if request.POST["editlogvictim"]:
+                    endtime = datetime.now() + timedelta(seconds=3)
+                    current_log = request.POST.get('logarea')
+                    Processes.objects.create(userid=request.user,
+                                             action=1,
+                                             timestart=datetime.now(),
+                                             timeend=endtime,
+                                             logedit=current_log, ipvictim=ip_connect)
+                    return HttpResponseRedirect("/task/")
 
 
 def hackip(request, msgbroke, ip_victim):
@@ -191,8 +201,10 @@ class NetView(TemplateView):
                 pw_victim = User.objects.filter(gameip=ip_victim).values('gamepass')[0]['gamepass']
 
                 if pw_try == pw_victim:
-                    print('entrousssssssssssssssssssssss')
                     connect_ip_victim(request.user, ip_victim)
+                    edit_usr_and_victim(user=request.user,
+                                        gameip_victim=ip_victim,
+                                        logedit=f'$ {request.user.gameip} connected to {ip_victim}')
                     return HttpResponseRedirect(f"/netip={ip_victim}isconnected=ok")
                 # finalizar quando a senha esta errada pra nao renderizar a pw
                 # se o ip nao estiver no banco de dados

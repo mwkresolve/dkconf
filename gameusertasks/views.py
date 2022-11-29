@@ -28,10 +28,18 @@ def CompleteTask(request):
         for infos in task:
             if not infos['completed']:
                 if infos['action'] == 1: # action editar log
-                    edit_my_log(request.user, infos['logedit'])
-                    User.objects.filter(username=request.user).update(log=infos['logedit'])
-                    Processes.objects.filter(userid=request.user, id=get_id).update(completed=True)
-                    return HttpResponseRedirect("log/")
+
+                    if infos['ismyserver']:
+                        edit_my_log(request.user, infos['logedit'])
+                        User.objects.filter(username=request.user).update(log=infos['logedit'])
+                        Processes.objects.filter(userid=request.user, id=get_id).update(completed=True)
+                        return HttpResponseRedirect("log/")
+
+                    else:
+                            # ip_connect
+                            edit_log_victim(gameip_victim=ip_connect, logedit=infos['logedit'])
+                            Processes.objects.filter(userid=request.user, id=get_id).update(completed=True)
+                    return HttpResponseRedirect("internet")
                 if infos['action'] == 2:  # tentar hackear ip
                     ip_victim = infos['iptryhack']
                     softs_user = Software.objects.filter(userid=request.user, softtype_id=1).values()
@@ -64,7 +72,7 @@ def CompleteTask(request):
                                     softversion = softdown[0]['softversion'],
                                     softsize = softdown[0]['softsize'],
                                     softram = softdown[0]['softram'],
-                                    softtype = typeofsoft)
+                                    softtype =typeofsoft)
                             # download concluido
                             Processes.objects.filter(userid=request.user, id=get_id).update(completed=True)
                             return HttpResponseRedirect("/software/")
