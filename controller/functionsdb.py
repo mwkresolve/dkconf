@@ -6,6 +6,7 @@ import random
 import math
 from datetime import datetime
 
+
 def disconnect_ip_victim(user):
     User.objects.filter(username=user).update(ipconnected='off')
 
@@ -187,20 +188,24 @@ def connect_ip_victim(user, ip):
     update_reputation(user, 1)
 
 
-def edit_my_log(user, logedit):
-    User.objects.filter(username=user).update(log=logedit)
+def edit_my_log(user, logedit, oldlog=False):
+    old_log_user = ''
+    if oldlog:
+        old_log_user = User.objects.filter(username=user).values('log')[0]['log'].strip()
+
+    User.objects.filter(username=user).update(log=f'{old_log_user}\n{logedit} at {get_current_time()}')
     update_reputation(user, 10)
+
 
 def edit_log_victim(gameip_victim, logedit):
     User.objects.filter(gameip=gameip_victim).update(log=logedit)
 
 
-
-def edit_usr_and_victim(user, gameip_victim, logedit):
-    old_log_user = User.objects.filter(username=user).values('log')[0]['log']
+def edit_log_usr_and_victim(user, gameip_victim, logedit):
     old_log_victim = User.objects.filter(gameip=gameip_victim).values('log')[0]['log']
-    edit_my_log(user, old_log_user + f'\n{logedit} at {get_current_time()}')
+    edit_my_log(user, f'\n{logedit}')
     edit_log_victim(gameip_victim, old_log_victim + f'\n{logedit} at {get_current_time()}')
+
 
 def get_current_time():
     return datetime.now().strftime('%H:%M:%S')

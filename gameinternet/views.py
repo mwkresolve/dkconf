@@ -53,7 +53,9 @@ class ConnectIpView(TemplateView):
             if 'download' in request.POST[info]:
                 chk_exists = len(Processes.objects.filter(userid=request.user,
                                                           action=3,
-                                                          softdownload=soft_id, completed=False).values()) >= 1
+                                                          softdownload=soft_id,
+                                                          completed=False,
+                                                          ipvictim=ip_connect).values()) >= 1
 
                 if chk_exists:
                     return HttpResponse("ja existe")
@@ -61,7 +63,10 @@ class ConnectIpView(TemplateView):
                 Processes.objects.create(userid=request.user,
                                          action=3,
                                          timestart=datetime.now(),
-                                         timeend=endtime, softdownload=soft_id)
+                                         timeend=endtime,
+                                         softdownload=soft_id,
+                                         ipvictim=ip_connect)
+
                 return HttpResponseRedirect("/task/")
             if 'delete' in request.POST[info]:
                 chk_exists = len(Processes.objects.filter(userid=request.user,
@@ -75,12 +80,15 @@ class ConnectIpView(TemplateView):
                 Processes.objects.create(userid=request.user,
                                          action=4,
                                          timestart=datetime.now(),
-                                         timeend=endtime, softdel=soft_id)
+                                         timeend=endtime,
+                                         softdel=soft_id,
+                                         ipvictim=ip_connect)
                 return HttpResponseRedirect("/task/")
             if 'runsoft' in request.POST[info]:
                 chk_exists = len(Processes.objects.filter(userid=request.user,
                                                           action=6,
-                                                          softrun=soft_id, completed=False).values()) >= 1
+                                                          softrun=soft_id,
+                                                          completed=False).values()) >= 1
 
                 if chk_exists:
                     return HttpResponse("ja existe")
@@ -88,7 +96,9 @@ class ConnectIpView(TemplateView):
                 Processes.objects.create(userid=request.user,
                                          action=6,
                                          timestart=datetime.now(),
-                                         timeend=endtime, softrun=soft_id, ipvictim=ip_connect)
+                                         timeend=endtime,
+                                         softrun=soft_id,
+                                         ipvictim=ip_connect)
                 return HttpResponseRedirect("/task/")
             if 'stopsoft' in request.POST[info]:
                 chk_exists = len(Processes.objects.filter(userid=request.user,
@@ -101,7 +111,9 @@ class ConnectIpView(TemplateView):
                 Processes.objects.create(userid=request.user,
                                          action=7,
                                          timestart=datetime.now(),
-                                         timeend=endtime, softstop=soft_id, ipvictim=ip_connect)
+                                         timeend=endtime,
+                                         softstop=soft_id,
+                                         ipvictim=ip_connect)
                 return HttpResponseRedirect("/task/")
             if request.POST["editlogvictim"]:
                     endtime = datetime.now() + timedelta(seconds=3)
@@ -110,7 +122,8 @@ class ConnectIpView(TemplateView):
                                              action=1,
                                              timestart=datetime.now(),
                                              timeend=endtime,
-                                             logedit=current_log, ipvictim=ip_connect)
+                                             logedit=current_log,
+                                             ipvictim=ip_connect)
                     return HttpResponseRedirect("/task/")
 
 
@@ -202,9 +215,9 @@ class NetView(TemplateView):
 
                 if pw_try == pw_victim:
                     connect_ip_victim(request.user, ip_victim)
-                    edit_usr_and_victim(user=request.user,
-                                        gameip_victim=ip_victim,
-                                        logedit=f'$ {request.user.gameip} connected to {ip_victim}')
+                    edit_log_usr_and_victim(user=request.user,
+                                            gameip_victim=ip_victim,
+                                            logedit=f'$ {request.user.gameip} connected to {ip_victim}')
                     return HttpResponseRedirect(f"/netip={ip_victim}isconnected=ok")
                 # finalizar quando a senha esta errada pra nao renderizar a pw
                 # se o ip nao estiver no banco de dados

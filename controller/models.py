@@ -100,6 +100,7 @@ class Software(models.Model):
     isactive = models.BooleanField(default=False)
 
 
+
 class HackedDatabase(models.Model):
     userid = models.ForeignKey(User, on_delete=models.CASCADE)
     iphacked = models.CharField(max_length=20)
