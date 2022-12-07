@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
+
+from controller.functionsdb import edit_my_log
 from controller.models import Hardware, User
 from gamefinances.models import WalletBank
 
@@ -38,6 +40,7 @@ class HardwareView(TemplateView, ActionsHardware):
                                                     })
 
     def post(self, request):
+        info_wallet_bank = WalletBank.objects.filter(userid=request.user).values()[0]
         balance = WalletBank.objects.filter(userid=request.user).values('balance')[0]['balance']
         user_hardware = Hardware.objects.filter(userid=self.request.user).values()
         cpu = user_hardware[0]['cpu']
@@ -60,6 +63,7 @@ class HardwareView(TemplateView, ActionsHardware):
                                                             'next_upgrade_ram': next_upgrade_ram,
                                                             'msg_erro_cpu': msg_erro_cpu})
             else:
+
                 Hardware.objects.filter(userid=request.user).update(cpu=cpu + 512)
                 WalletBank.objects.filter(userid=request.user).update(balance=balance - value_next_upgrade)
                 msg_ok_cpu =  'Upgrade realizado com sucesso'
@@ -71,6 +75,8 @@ class HardwareView(TemplateView, ActionsHardware):
                 ram = user_hardware[0]['ram']
                 next_upgrade_ram = int(ram * 2 / 4)
                 next_upgrade = self.get_next_upgrade(cpu=cpu, hdd=hdd, ram=ram)
+                log = f'$ {request.user.gameip} adicionou 512 ghz em seu processador por R${value_next_upgrade} com a conta {info_wallet_bank["account"]}'
+                edit_my_log(request.user, log)
                 return render(request, self.template_name, {'user_hardware': user_hardware,
                                                             'next_upgrade': next_upgrade,
                                                             'next_upgrade_cpu': next_upgrade_cpu,
@@ -78,7 +84,6 @@ class HardwareView(TemplateView, ActionsHardware):
                                                             'next_upgrade_ram': next_upgrade_ram,
                                                             'msg_ok_cpu': msg_ok_cpu})
         if 'upgradehd' in request.POST:
-            print('hdddddddddddddd')
             value_next_upgrade = int(hdd * 2 / 10)
             if balance < value_next_upgrade:
                 msg_erro_hd = 'SALDO INSUCIFIENTE'
@@ -99,6 +104,8 @@ class HardwareView(TemplateView, ActionsHardware):
                 ram = user_hardware[0]['ram']
                 next_upgrade_ram = int(ram * 2 / 4)
                 next_upgrade = self.get_next_upgrade(cpu=cpu, hdd=hdd, ram=ram)
+                log = f'$ {request.user.gameip} adicionou 1gb em seu hd por R${value_next_upgrade} com a conta {info_wallet_bank["account"]}'
+                edit_my_log(request.user, log)
                 return render(request, self.template_name, {'user_hardware': user_hardware,
                                                             'next_upgrade': next_upgrade,
                                                             'next_upgrade_cpu': next_upgrade_cpu,
@@ -128,6 +135,8 @@ class HardwareView(TemplateView, ActionsHardware):
                 ram = user_hardware[0]['ram']
                 next_upgrade_ram = int(ram * 2 / 4)
                 next_upgrade = self.get_next_upgrade(cpu=cpu, hdd=hdd, ram=ram)
+                log = f'$ {request.user.gameip} adicionou 256 mb de memoria ram, por R${value_next_upgrade} com a conta {info_wallet_bank["account"]}'
+                edit_my_log(request.user, log)
                 return render(request, self.template_name, {'user_hardware': user_hardware,
                                                             'next_upgrade': next_upgrade,
                                                             'next_upgrade_cpu': next_upgrade_cpu,

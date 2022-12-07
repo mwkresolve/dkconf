@@ -188,7 +188,7 @@ def connect_ip_victim(user, ip):
     update_reputation(user, 1)
 
 
-def edit_my_log(user, logedit, oldlog=False):
+def edit_my_log(user, logedit, oldlog=True):
     old_log_user = ''
     if oldlog:
         old_log_user = User.objects.filter(username=user).values('log')[0]['log'].strip()
