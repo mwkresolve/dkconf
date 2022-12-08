@@ -5,16 +5,13 @@ import names
 import random
 import math
 from datetime import datetime
+from django.db.models import Q
 
 
 def disconnect_ip_victim(user):
     User.objects.filter(username=user).update(ipconnected='off')
-
-
 def connect_ip_victim(user, ip):
     User.objects.filter(username=user).update(ipconnected=ip)
-
-
 def create_user_game(user):
     """
     por enquanto isto está sendo usado quando o usuario loga pela primeira vez no jogo
@@ -46,11 +43,14 @@ def npc_basic_config():
         so pra fazer volume msm
         por hora ta simulando outros players
      """
-    for c in range(100):
-        name = f'{names.get_last_name()}_{names.get_first_name()}'
-        user_1 = User.objects.create_user(f'{name}', f'{name}@chase.com', 'chevyspgererassword', isnpc=1)
-        create_user_game(user_1)
-        update_reputation(user_1, random.randint(100, 10000))
+    try:
+        for c in range(100):
+            name = f'{names.get_last_name()}_{names.get_first_name()}'
+            user_1 = User.objects.create_user(f'{name}', f'{name}@chase.com', 'chevyspgererassword', isnpc=1)
+            create_user_game(user_1)
+            update_reputation(user_1, random.randint(100, 10000))
+    except:
+        pass
 
 
 def creategame():
@@ -97,8 +97,8 @@ def create_npc_game():
 
     create_hardware_npc()
     create_softs_npc()
-    create_enigmas()
     npc_basic_config()
+    create_enigmas()
 
 
 def create_hardware_npc():
@@ -118,9 +118,10 @@ def reset_softs_npc():
     npcList = json.loads(npc_data)
     for bot in npcList:
         user = User.objects.get(username=npcList[bot]['nome'])
-        softs_npc = Software.objects.filter(userid=user).delete()
-
+        # deletar todos os softs dos bot menos .enigma
+        Software.objects.filter(~Q(softtype='19'), userid=user).delete()
     create_softs_npc()
+
 
 
 def create_enigmas():
@@ -170,6 +171,7 @@ def create_softs_npc():
 
         softsize += 100
         softram += 25
+
 
 
 def update_reputation(user, sumreputation):

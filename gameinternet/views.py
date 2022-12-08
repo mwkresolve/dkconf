@@ -45,7 +45,7 @@ class ConnectIpView(TemplateView):
         ip_connect = info_user[0]['ipconnected']
         for info in request.POST:
             soft_id = info
-            if 'Resolver' in request.POST[info]:
+            if 'resolver' in request.POST[info]:
                 return HttpResponseRedirect(f"/netip={ip_connect}isconnected=ok=enigma")
             if 'logout' in request.POST[info]:
                 disconnectuser(request)

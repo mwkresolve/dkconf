@@ -216,9 +216,10 @@
 
                         {% if soft.softtype_id == 19 %}
 
-                            <form method="post" name="enigma">
-						    {% csrf_token %}
-						<input type="submit" value="Resolver" name='enigma'>
+                                   <form method="post" name="resolver" >
+                                     <input type="submit" value="resolver" name='resolver'>
+                                        {% csrf_token %}
+                                    </form>
 
 						{% else %}
 
